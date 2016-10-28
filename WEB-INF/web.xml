@@ -7,47 +7,47 @@
 
   <servlet>
     <servlet-name>AppListDev</servlet-name>
-    <servlet-class>AppListDevServlet</servlet-class>
+    <servlet-class>servlets.AppListDevServlet</servlet-class>
   </servlet>
   
   <servlet>
     <servlet-name>AppListUser</servlet-name>
-    <servlet-class>AppListUserServlet</servlet-class>
+    <servlet-class>servlets.AppListUserServlet</servlet-class>
   </servlet>
   
   <servlet>
     <servlet-name>AppDetail</servlet-name>
-    <servlet-class>AppDetailServlet</servlet-class>
+    <servlet-class>servlets.AppDetailServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>AppSearch</servlet-name>
-    <servlet-class>SearchServlet</servlet-class>
+    <servlet-class>servlets.SearchServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>AppAdd</servlet-name>
-    <servlet-class>AppAddServlet</servlet-class>
+    <servlet-class>servlets.AppAddServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>AppAddResult</servlet-name>
-    <servlet-class>AppAddResultServlet</servlet-class>
+    <servlet-class>servlets.AppAddResultServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>AppEdit</servlet-name>
-    <servlet-class>AppEditServlet</servlet-class>
+    <servlet-class>servlets.AppEditServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>AppUpdate</servlet-name>
-    <servlet-class>UpdateServlet</servlet-class>
+    <servlet-class>servlets.AppUpdateServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>AppDelete</servlet-name>
-    <servlet-class>DeleteServlet</servlet-class>
+    <servlet-class>servlets.DeleteServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>

@@ -1,17 +1,20 @@
-import java.io.FileInputStream;
+package servlets;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import utility.AppDBPage;
+import utility.AppDatabaseConnection;
+import utility.HtmlTag;
 
 @SuppressWarnings("serial")
 public class AppEditServlet extends HttpServlet {
@@ -38,7 +41,6 @@ public class AppEditServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
-			stmt = conn.prepareStatement("SELECT * FROM apps WHERE aid = ?");
 			
 			out.println("<h2>アプリ編集</h2>");
 			out.println("<form action='update' method='POST'>");
@@ -46,8 +48,21 @@ public class AppEditServlet extends HttpServlet {
 			out.println("<input type='hidden' name='update_aid' + value='" + aid + "'>");
 			out.println("<br>");
 			
+			stmt = conn.prepareStatement("SELECT * FROM app_dev WHERE aid = ?");
 			stmt.setInt(1, Integer.parseInt(aid));
 			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String did = rs.getString("did");
+				out.println("開発者名: ");
+				out.println("<input type='text' name='update_did' value='" + did + "'>");
+				out.println("<br>");
+			}
+			rs.close();
+			stmt.close();
+			
+			stmt = conn.prepareStatement("SELECT * FROM apps WHERE aid = ?");
+			stmt.setInt(1, Integer.parseInt(aid));
+			rs = stmt.executeQuery();
 			while (rs.next()) {
 				String name = rs.getString("aname");
 				String version = rs.getString("aversion");

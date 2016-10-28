@@ -1,17 +1,18 @@
-import java.io.FileInputStream;
+package servlets;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
 public class DeleteServlet extends HttpServlet {
@@ -34,7 +35,6 @@ public class DeleteServlet extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			Class.forName("org.postgresql.Driver");
 			conn = AppDatabaseConnection.getConnection(getServletContext());
 			
 			stmt = conn.prepareStatement("SELECT * FROM apps WHERE aid = ?");

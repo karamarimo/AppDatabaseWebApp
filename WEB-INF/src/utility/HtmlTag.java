@@ -1,3 +1,4 @@
+package utility;
 public class HtmlTag {
 	public final String closingTag;
 	public final String openingTag;

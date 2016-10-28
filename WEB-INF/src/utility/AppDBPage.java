@@ -1,3 +1,4 @@
+package utility;
 
 public class AppDBPage {
 	static public HtmlTag makeHead() {

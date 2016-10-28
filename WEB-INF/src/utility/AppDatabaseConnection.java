@@ -1,3 +1,5 @@
+package utility;
+
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +10,7 @@ import javax.servlet.ServletContext;
 
 public class AppDatabaseConnection {
 	
-	static Connection getConnection(ServletContext ctx) throws SQLException {
+	static public Connection getConnection(ServletContext ctx) throws SQLException {
 		String _hostname = null;
 		String _dbname = null;
 		String _username = null;
