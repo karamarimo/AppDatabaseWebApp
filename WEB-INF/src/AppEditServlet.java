@@ -14,28 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class ItemServlet extends HttpServlet {
+public class AppEditServlet extends HttpServlet {
 
-	private String _hostname = null;
-	private String _dbname = null;
-	private String _username = null;
-	private String _password = null;
-
-	public void init() throws ServletException {
-		// iniファイルから自分のデータベース情報を読み込む
-		String iniFilePath = getServletConfig().getServletContext()
-				.getRealPath("WEB-INF/le4db.ini");
-		try {
-			FileInputStream fis = new FileInputStream(iniFilePath);
-			Properties prop = new Properties();
-			prop.load(fis);
-			_hostname = prop.getProperty("hostname");
-			_dbname = prop.getProperty("dbname");
-			_username = prop.getProperty("username");
-			_password = prop.getProperty("password");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void init() {
+		
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -55,15 +37,14 @@ public class ItemServlet extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			Class.forName("org.postgresql.Driver");
-			conn = DriverManager.getConnection("jdbc:postgresql://" + _hostname
-					+ ":5432/" + _dbname, _username, _password);
+			conn = AppDatabaseConnection.getConnection(getServletContext());
 			stmt = conn.prepareStatement("SELECT * FROM apps WHERE aid = ?");
 			
-			out.println("<form action='update' method='GET'>");
-			out.println("アプリID： " + aid);
-			out.println("<input type='hidden' name='update_pid' + value='" + aid + "'>");
-			out.println("<br/>");
+			out.println("<h2>アプリ編集</h2>");
+			out.println("<form action='update' method='POST'>");
+			out.println("アプリID: " + aid);
+			out.println("<input type='hidden' name='update_aid' + value='" + aid + "'>");
+			out.println("<br>");
 			
 			stmt.setInt(1, Integer.parseInt(aid));
 			ResultSet rs = stmt.executeQuery();
@@ -91,11 +72,15 @@ public class ItemServlet extends HttpServlet {
 				out.println("<br>");				
 			}
 			rs.close();
+			stmt.close();
 			
 			out.println("<input type='submit' value='更新'>");
 			out.println("</form>");
 
 		} catch (Exception e) {
+			out.println("エラーが発生しました。");
+			out.println("<br>");
+			out.println(e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {
@@ -108,8 +93,8 @@ public class ItemServlet extends HttpServlet {
 		}
 
 		out.println("<form action='delete' method='GET'>");
-		out.println("<input type='hidden' name='delete_pid' value='" + aid + "'>");
-		out.println("<input type='submit' value='削除'>");
+		out.println("<input type='hidden' name='delete_aid' value='" + aid + "'>");
+		out.println("<input class='delete_button' type='submit' value='削除'>");
 		out.println("</form>");
 
 //		out.println("<br/>");

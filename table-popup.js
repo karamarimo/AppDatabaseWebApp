@@ -11,7 +11,6 @@ $(function() {
 			$('#popup-content').load(ref + ' #main', function() {
 				$('#popup').fadeIn(300);
 			});
-			
 		}
 	});	
 

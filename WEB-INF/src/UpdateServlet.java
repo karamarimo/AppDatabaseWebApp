@@ -2,9 +2,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
@@ -15,26 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class UpdateServlet extends HttpServlet {
 
-	private String _hostname = null;
-	private String _dbname = null;
-	private String _username = null;
-	private String _password = null;
-
 	public void init() throws ServletException {
-		// iniファイルから自分のデータベース情報を読み込む
-		String iniFilePath = getServletConfig().getServletContext()
-				.getRealPath("WEB-INF/le4db.ini");
-		try {
-			FileInputStream fis = new FileInputStream(iniFilePath);
-			Properties prop = new Properties();
-			prop.load(fis);
-			_hostname = prop.getProperty("hostname");
-			_dbname = prop.getProperty("dbname");
-			_username = prop.getProperty("username");
-			_password = prop.getProperty("password");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -43,32 +26,42 @@ public class UpdateServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String updatePID = request.getParameter("update_pid");
+		String updateAID = request.getParameter("update_aid");
 		String updateName = request.getParameter("update_name");
+		String updateVersion = request.getParameter("update_version");
 		String updatePrice = request.getParameter("update_price");
+		String updateRelease = request.getParameter("update_release");
+		String updateDescription = request.getParameter("update_description");
 
 		out.println("<html>");
 		out.println("<body>");
 
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		try {
 			Class.forName("org.postgresql.Driver");
-			conn = DriverManager.getConnection("jdbc:postgresql://" + _hostname
-					+ ":5432/" + _dbname, _username, _password);
-			stmt = conn.createStatement();
+			conn = AppDatabaseConnection.getConnection(getServletContext());
+			stmt = conn.prepareStatement("UPDATE apps SET "
+					+ "aname = ?, aversion = ?, aprice = ?, arelease_date = ?, adescription = ? "
+					+ "WHERE aid = ?");
+			stmt.setInt(6, Integer.parseInt(updateAID));
+			stmt.setString(1, updateName);
+			stmt.setString(2, updateVersion);
+			stmt.setInt(3, Integer.parseInt(updatePrice));
+			stmt.setDate(4, Date.valueOf(updateRelease));
+			stmt.setString(5, updateDescription);
+			stmt.executeUpdate();
+			stmt.close();
 
-			stmt
-					.executeUpdate("UPDATE products SET name = '" + updateName
-							+ "', price = " + updatePrice + " WHERE pid = "
-							+ updatePID);
-
-			out.println("以下の商品を更新しました。<br/><br/>");
-			out.println("商品ID: " + updatePID + "<br/>");
-			out.println("商品名: " + updateName + "<br/>");
-			out.println("価格: " + updatePrice + "<br/>");
-
+			out.println("以下のアプリを更新しました。<br/><br/>");
+			out.println("アプリID: " + updateAID + "<br/>");
+			out.println("アプリ名: " + updateName + "<br/>");
+		} catch (IllegalArgumentException e) {
+			out.println("パラメーターの形式が正しくありません。");
 		} catch (Exception e) {
+			out.println("エラーが発生しました。");
+			out.println("<br>");
+			out.println(e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {

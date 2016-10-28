@@ -7,8 +7,7 @@ public class AppDBPage {
 				+ "<link rel='icon' href='/icon.png'>"
 				+ "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>"
 				+ "<link rel='stylesheet' type='text/css' href='appdb.css'>"
-				+ "<script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>"
-				+ "<script type='text/javascript' src='appdb.js'></script>", 
+				+ "<script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>", 
 				"</head>");
 		return header;
 	}
@@ -23,17 +22,38 @@ public class AppDBPage {
 				"<body>"
 				+ "<div id='popup'><div id='popup-content'></div></div>"
 				+ "<div id='wrapper'>"
-				+ "<nav id='nav'>"
-				+ "<div id='nav-wrapper'>"
-				+ "<h3>Apps</h3>"
-				+ "<ul>"
-				+ "<li><a href='/list'>List</a></li>"
-				+ "</ul>"
-				+ "</div>"
-				+ "</nav>"
-				+ "<main id='main'>",
+				+ makeNavbar().whole()
+				+ "<main id='main'>"
+				+ makeJSWarning().whole(),
 				"</main></div></body>");
 		return body;
+	}
+	
+	static public HtmlTag makeJSWarning() {
+		return new HtmlTag(
+				"<noscript>"
+				+ "<div style='background-color: #F99;'>"
+				+ "<h3>JavaScript Required</h3>"
+				+ "Javascriptを有効にしてください。", 
+				"</div></noscript>");
+	}
+	
+	static public HtmlTag makeNavbar() {
+		HtmlTag navbar = new HtmlTag(
+				"<nav id='nav'>"
+				+ "<div id='nav-wrapper'>"
+				+ "<h3>開発者用</h3>"
+				+ "<ul>"
+				+ "<li><a href='/list'>アプリ一覧</a></li>"
+				+ "<li><a href='/appaddform'>アプリ追加</a></li>"
+				+ "</ul>"
+				+ "<h3>一般ユーザ用</h3>"
+				+ "<ul>"
+				+ "<li><a href='/app_list_user'>アプリ一覧</a></li>"
+				+ "</ul>"
+				+ "</div>", 
+				"</nav>");
+		return navbar;
 	}
 	
 	static public HtmlTag makeAddForm() {

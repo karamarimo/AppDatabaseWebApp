@@ -16,26 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class SearchServlet extends HttpServlet {
 
-	private String _hostname = null;
-	private String _dbname = null;
-	private String _username = null;
-	private String _password = null;
-
 	public void init() throws ServletException {
-		// iniファイルから自分のデータベース情報を読み込む
-		String iniFilePath = getServletConfig().getServletContext()
-				.getRealPath("WEB-INF/le4db.ini");
-		try {
-			FileInputStream fis = new FileInputStream(iniFilePath);
-			Properties prop = new Properties();
-			prop.load(fis);
-			_hostname = prop.getProperty("hostname");
-			_dbname = prop.getProperty("dbname");
-			_username = prop.getProperty("username");
-			_password = prop.getProperty("password");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -45,31 +27,43 @@ public class SearchServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String searchName = request.getParameter("search_name");
+		
+		// redirect to list page if search_name is null
+		if (searchName.isEmpty()) {
+			response.sendRedirect("/list");
+			log("redirect due to empty query");
+		}
 
 		out.println("<html>");
-		out.println(AppDBPage.makeHead().whole());
 		
+		HtmlTag head = AppDBPage.makeHead();
 		HtmlTag body = AppDBPage.makeBody();
 
+		out.println(head.openingTag);
+		out.println("<script type='text/javascript' src='table-popup.js'></script>");
+		out.println(head.closingTag);
 		out.println(body.openingTag);
 
 		out.println("<h3>検索結果</h3>");
-		out.println("検索に用いた語：" + searchName);
+		out.println("Results for: " + searchName);
+		out.println("<form class='search-box' action='search' method='GET'>");
+		out.println("<input type='search' name='search_name' placeholder='search for app...'>");
+		out.println("<input type='submit' value='GO'>");
+		out.println("</form>");
 		
+		HtmlTag table = AppDBPage.makeTable();
+		out.println(table.openingTag);
+		out.println("<thead><tr><th>アプリID</th><th>名前</th><th>価格</th></tr></thead>");
+		out.println("<tbody>");
+
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
 			Class.forName("org.postgresql.Driver");
-			conn = DriverManager.getConnection("jdbc:postgresql://" + _hostname
-					+ ":5432/" + _dbname, _username, _password);
+			conn = AppDatabaseConnection.getConnection(getServletContext());
 			stmt = conn.prepareStatement("SELECT * FROM apps WHERE UPPER(aname) LIKE UPPER(?)");
 			// TODO: create index for upper(aname)...?
-			
-			HtmlTag table = AppDBPage.makeTable();
-			out.println(table.openingTag);
-			out.println("<thead><tr><th>アプリID</th><th>名前</th><th>価格</th></tr></thead>");
-			out.println("<tbody>");
-			
+						
 			stmt.setString(1, "%" + searchName + "%");
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -77,17 +71,14 @@ public class SearchServlet extends HttpServlet {
 				String name = rs.getString("aname");
 				int price = rs.getInt("aprice");
 
-				out.println("<tr>");
+				out.println("<tr data-href='/item?aid="+ aid + "'>");
 				out.println("<td align='right'>" + aid + "</td>");
 				out.println("<td align='left'>" + name + "</td>");
 				out.println("<td align='right'>" + price + "</td>");
 				out.println("</tr>");
 			}
 			rs.close();
-
-			out.println("</tbody>");
-			out.println(table.closingTag);
-
+			stmt.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -100,9 +91,8 @@ public class SearchServlet extends HttpServlet {
 			}
 		}
 
-		out.println("<br/>");
-		out.println("<a href=\"list\">トップページに戻る</a>");
-
+		out.println("</tbody>");
+		out.println(table.closingTag);
 		out.println(body.closingTag);
 		out.println("</html>");
 	}

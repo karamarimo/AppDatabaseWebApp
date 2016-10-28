@@ -6,62 +6,92 @@
 <web-app>
 
   <servlet>
-    <servlet-name>List</servlet-name>
-    <servlet-class>ListServlet</servlet-class>
+    <servlet-name>AppListDev</servlet-name>
+    <servlet-class>AppListDevServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>AppListUser</servlet-name>
+    <servlet-class>AppListUserServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>AppDetail</servlet-name>
+    <servlet-class>AppDetailServlet</servlet-class>
   </servlet>
 
   <servlet>
-    <servlet-name>Search</servlet-name>
+    <servlet-name>AppSearch</servlet-name>
     <servlet-class>SearchServlet</servlet-class>
   </servlet>
 
   <servlet>
-    <servlet-name>Add</servlet-name>
-    <servlet-class>AddServlet</servlet-class>
+    <servlet-name>AppAdd</servlet-name>
+    <servlet-class>AppAddServlet</servlet-class>
   </servlet>
 
   <servlet>
-    <servlet-name>Item</servlet-name>
-    <servlet-class>ItemServlet</servlet-class>
+    <servlet-name>AppAddResult</servlet-name>
+    <servlet-class>AppAddResultServlet</servlet-class>
   </servlet>
 
   <servlet>
-    <servlet-name>Update</servlet-name>
+    <servlet-name>AppEdit</servlet-name>
+    <servlet-class>AppEditServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>AppUpdate</servlet-name>
     <servlet-class>UpdateServlet</servlet-class>
   </servlet>
 
   <servlet>
-    <servlet-name>Delete</servlet-name>
+    <servlet-name>AppDelete</servlet-name>
     <servlet-class>DeleteServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>List</servlet-name>
+    <servlet-name>AppListDev</servlet-name>
     <url-pattern>/list</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>AppListUser</servlet-name>
+    <url-pattern>/app_list_user</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>AppDetail</servlet-name>
+    <url-pattern>/app_detail</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>Search</servlet-name>
+    <servlet-name>AppSearch</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>Add</servlet-name>
+    <servlet-name>AppAdd</servlet-name>
+    <url-pattern>/appaddform</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AppAddResult</servlet-name>
     <url-pattern>/add</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>Item</servlet-name>
-    <url-pattern>/item</url-pattern>
+    <servlet-name>AppEdit</servlet-name>
+    <url-pattern>/app_edit</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>Update</servlet-name>
+    <servlet-name>AppUpdate</servlet-name>
     <url-pattern>/update</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>Delete</servlet-name>
+    <servlet-name>AppDelete</servlet-name>
     <url-pattern>/delete</url-pattern>
   </servlet-mapping>
 

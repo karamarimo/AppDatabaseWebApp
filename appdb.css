@@ -39,6 +39,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	align-items: stretch;
+	min-height: 100%;
 }
 
 main {
@@ -63,14 +64,26 @@ main {
 }
 
 nav ul {
-	list-style-type: none;
+	list-style-type: disc;
 	margin: 0;
-	padding: 0;
+	padding: 0 20px;
 }
 
-nav ul a {
-	color: darkgreen;
+a:link {
 	text-decoration: none;
+}
+a:link {
+	color: inherit;
+}
+a:visited {
+	color: inherit;
+}
+a:hover {
+	color: inherit;
+}
+
+input {
+	font-size: 100%;
 }
 
 #popup {
@@ -86,8 +99,8 @@ nav ul a {
 #popup-content {
 	padding: 30px;
 	background-color: #FFF;
-	border-radius: 20px;
+	border-radius: 10px;
 	width: 400px;
-	margin: 100px auto;
+	margin: 50px auto;
 	line-height: 2.0;
 }
