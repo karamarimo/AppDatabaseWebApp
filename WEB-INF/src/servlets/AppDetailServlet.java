@@ -109,6 +109,11 @@ public class AppDetailServlet extends HttpServlet {
 		out.println("<input type='hidden' name='review_aid' value='" + aid + "'>");
 		out.println("<input type='submit' value='レビューを書く'>");
 		out.println("</form>");
+		
+		out.println("<form action='list_review' method='GET'>");
+		out.println("<input type='hidden' name='aid' value='" + aid + "'>");
+		out.println("<input type='submit' value='レビューを見る'>");
+		out.println("</form>");
 
 //		out.println("<br/>");
 //		out.println("<a href='list'>トップページに戻る</a>");
