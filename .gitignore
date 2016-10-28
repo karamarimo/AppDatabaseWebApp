@@ -4,7 +4,7 @@
 .settings/
 
 # Java
-.class
+*.class
 
 # Mac
 .DS_Store
