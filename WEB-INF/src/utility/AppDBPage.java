@@ -46,7 +46,7 @@ public class AppDBPage {
 				+ "<h3>開発者用</h3>"
 				+ "<ul>"
 				+ "<li><a href='/list'>アプリ一覧</a></li>"
-				+ "<li><a href='/appaddform'>アプリ追加</a></li>"
+				+ "<li><a href='/app_new'>アプリ追加</a></li>"
 				+ "</ul>"
 				+ "<h3>一般ユーザ用</h3>"
 				+ "<ul>"

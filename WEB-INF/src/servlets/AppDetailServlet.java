@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,22 +74,38 @@ public class AppDetailServlet extends HttpServlet {
 			
 			// get average rating
 			stmt = conn.prepareStatement(
-					"SELECT AVG(rrate) AS avg_rate FROM reviews NATURAL JOIN review_app "
+					"SELECT AVG(rrate) AS avg_rate, COUNT(*) AS rcount "
+					+ "FROM reviews NATURAL JOIN review_app "
 					+ "WHERE aid = ?");
 			stmt.setInt(1, Integer.parseInt(aid));
 			rs = stmt.executeQuery();
 			while (rs.next()) {
+				Integer rcount = rs.getInt("rcount");
 				Double avg_rate = rs.getDouble("avg_rate");
+				
+				// average rating
 				if (rs.wasNull()) {
 					out.println("<br>");
 					out.println("平均レーティング: なし");
 				} else {
 					DecimalFormat df = new DecimalFormat("#.0");
+					df.setRoundingMode(RoundingMode.HALF_UP);
 					String avg = df.format(avg_rate);
 					
 					out.println("<br>");
 					out.println("平均レーティング: " + avg);
 				}
+				
+				// see-all-reviews button showing review count
+				out.println("<form action='review_list' method='GET'>");
+				out.println("<input type='hidden' name='aid' value='" + aid + "'>");
+				if (rcount == 0) {
+					out.println("<input type='submit' value='レビューなし' disabled>");
+				} else {
+					out.println("<input type='submit' value='レビュー一覧("
+							+ rcount + "件)'>");
+				}
+				out.println("</form>");
 			}
 		} catch (Exception e) {
 			out.println("エラーが発生しました。");
@@ -110,11 +127,6 @@ public class AppDetailServlet extends HttpServlet {
 		out.println("<input type='submit' value='レビューを書く'>");
 		out.println("</form>");
 		
-		out.println("<form action='list_review' method='GET'>");
-		out.println("<input type='hidden' name='aid' value='" + aid + "'>");
-		out.println("<input type='submit' value='レビューを見る'>");
-		out.println("</form>");
-
 //		out.println("<br/>");
 //		out.println("<a href='list'>トップページに戻る</a>");
 

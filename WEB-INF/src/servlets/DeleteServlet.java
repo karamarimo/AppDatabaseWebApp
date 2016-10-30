@@ -52,8 +52,8 @@ public class DeleteServlet extends HttpServlet {
 			stmt.executeUpdate();
 			stmt.close();
 			
-			out.println("以下の商品を削除しました。<br/><br/>");
-			out.println("商品ID: " + deleteAID + "<br/>");
+			out.println("以下のアプリを削除しました。<br/><br/>");
+			out.println("アプリID: " + deleteAID + "<br/>");
 			out.println("アプリ名: " + name + "<br/>");
 
 		} catch (Exception e) {

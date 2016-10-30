@@ -43,7 +43,7 @@ public class AppEditServlet extends HttpServlet {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
 			
 			out.println("<h2>アプリ編集</h2>");
-			out.println("<form action='update' method='POST'>");
+			out.println("<form action='app_update' method='POST'>");
 			out.println("アプリID: " + aid);
 			out.println("<input type='hidden' name='update_aid' + value='" + aid + "'>");
 			out.println("<br>");
@@ -53,7 +53,7 @@ public class AppEditServlet extends HttpServlet {
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String did = rs.getString("did");
-				out.println("開発者名: ");
+				out.println("開発者ID: ");
 				out.println("<input type='text' name='update_did' value='" + did + "'>");
 				out.println("<br>");
 			}
@@ -107,7 +107,7 @@ public class AppEditServlet extends HttpServlet {
 			}
 		}
 
-		out.println("<form action='delete' method='GET'>");
+		out.println("<form action='app_delete' method='POST'>");
 		out.println("<input type='hidden' name='delete_aid' value='" + aid + "'>");
 		out.println("<input class='delete_button' type='submit' value='削除'>");
 		out.println("</form>");

@@ -26,13 +26,13 @@
   </servlet>
 
   <servlet>
-    <servlet-name>AppAdd</servlet-name>
-    <servlet-class>servlets.AppAddServlet</servlet-class>
+    <servlet-name>AppNew</servlet-name>
+    <servlet-class>servlets.AppNewServlet</servlet-class>
   </servlet>
 
   <servlet>
-    <servlet-name>AppAddResult</servlet-name>
-    <servlet-class>servlets.AppAddResultServlet</servlet-class>
+    <servlet-name>AppAdd</servlet-name>
+    <servlet-class>servlets.AppAddServlet</servlet-class>
   </servlet>
 
   <servlet>
@@ -48,6 +48,26 @@
   <servlet>
     <servlet-name>AppDelete</servlet-name>
     <servlet-class>servlets.DeleteServlet</servlet-class>
+  </servlet>
+  
+ <servlet>
+    <servlet-name>ReviewList</servlet-name>
+    <servlet-class>servlets.ReviewListServlet</servlet-class>
+  </servlet>
+
+ <servlet>
+    <servlet-name>ReviewEdit</servlet-name>
+    <servlet-class>servlets.ReviewEditServlet</servlet-class>
+  </servlet>
+
+ <servlet>
+    <servlet-name>ReviewUpdate</servlet-name>
+    <servlet-class>servlets.ReviewUpdateServlet</servlet-class>
+  </servlet>
+
+ <servlet>
+    <servlet-name>ReviewDelete</servlet-name>
+    <servlet-class>servlets.ReviewDeleteServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -71,13 +91,13 @@
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>AppAdd</servlet-name>
-    <url-pattern>/appaddform</url-pattern>
+    <servlet-name>AppNew</servlet-name>
+    <url-pattern>/app_new</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>AppAddResult</servlet-name>
-    <url-pattern>/add</url-pattern>
+    <servlet-name>AppAdd</servlet-name>
+    <url-pattern>/app_add</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
@@ -87,12 +107,32 @@
 
   <servlet-mapping>
     <servlet-name>AppUpdate</servlet-name>
-    <url-pattern>/update</url-pattern>
+    <url-pattern>/app_update</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>AppDelete</servlet-name>
-    <url-pattern>/delete</url-pattern>
+    <url-pattern>/app_delete</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ReviewList</servlet-name>
+    <url-pattern>/review_list</url-pattern>
+  </servlet-mapping>
+
+ <servlet-mapping>
+    <servlet-name>ReviewEdit</servlet-name>
+    <url-pattern>/review_edit</url-pattern>
+  </servlet-mapping>
+
+ <servlet-mapping>
+    <servlet-name>ReviewUpdate</servlet-name>
+    <url-pattern>/review_update</url-pattern>
+  </servlet-mapping>
+
+ <servlet-mapping>
+    <servlet-name>ReviewDelete</servlet-name>
+    <url-pattern>/review_delete</url-pattern>
   </servlet-mapping>
 
 </web-app>

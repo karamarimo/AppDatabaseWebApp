@@ -70,6 +70,7 @@ public class AppUpdateServlet extends HttpServlet {
 			out.println("アプリ名: " + updateName + "<br/>");
 		} catch (IllegalArgumentException e) {
 			out.println("パラメーターの形式が正しくありません。");
+			e.printStackTrace();
 			if (conn != null) {
 				try {
 					System.err.println("transaction is being rolled back");

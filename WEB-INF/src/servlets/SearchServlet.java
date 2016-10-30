@@ -32,9 +32,9 @@ public class SearchServlet extends HttpServlet {
 		String searchName = request.getParameter("search_name");
 		
 		// redirect to list page if search_name is null
-		if (searchName.isEmpty()) {
+		if (searchName == null || searchName.isEmpty()) {
 			response.sendRedirect("/list");
-			log("redirect due to empty query");
+			System.out.println("redirect due to empty query");
 		}
 
 		out.println("<html>");
