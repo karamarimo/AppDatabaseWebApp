@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
 import utility.AppDatabaseConnection;
-import utility.HtmlTag;
 
 @SuppressWarnings("serial")
 public class AppDetailServlet extends HttpServlet {
@@ -32,14 +31,12 @@ public class AppDetailServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String aid = request.getParameter("aid");
-		
-		HtmlTag head = AppDBPage.makeHead();
-		
+				
 		out.println("<html>");
-		out.println(head.openingTag);
+		out.println(AppDBPage.HEAD.openingTag);
 		out.println("<script type='text/javascript' src='js.cookie.js'></script>");
 		out.println("<script type='text/javascript' src='add-to-cart.js'></script>");
-		out.println(head.closingTag);
+		out.println(AppDBPage.HEAD.closingTag);
 		out.println("<body>");
 
 		Connection conn = null;

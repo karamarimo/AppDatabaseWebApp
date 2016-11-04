@@ -11,4 +11,10 @@ public class HtmlTag {
 	public String whole() {
 		return openingTag + closingTag;
 	}
+
+	@Override
+	public String toString() {
+		return openingTag + closingTag;
+	}
+	
 }

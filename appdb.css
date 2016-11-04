@@ -87,6 +87,7 @@ input {
 }
 
 #popup {
+	overflow: auto;
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -94,7 +95,7 @@ input {
 	height: 100%;
 	display: none;	/* will be changed to flex using js */
 	justify-content: center;
-	align-items: stretch;
+	align-items: flex-start;
 	background: rgba(100, 100, 100, 0.5);
 	z-index: 100;
 }
@@ -105,7 +106,7 @@ input {
 	padding: 30px;
 	background-color: #FFF;
 	border-radius: 10px;
-	margin: 20px 0;
+	margin: 10px 0;
 	line-height: 2.0;
 }
 

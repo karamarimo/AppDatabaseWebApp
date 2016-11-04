@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utility.AppDBPage;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
@@ -29,7 +30,8 @@ public class ReviewDeleteServlet extends HttpServlet {
 		String deleteRID = request.getParameter("rid");
 
 		out.println("<html>");
-		out.println("<body>");
+		out.println(AppDBPage.HEAD);
+		out.println(AppDBPage.BODY.openingTag);
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -59,7 +61,7 @@ public class ReviewDeleteServlet extends HttpServlet {
 			}
 		}
 
-		out.println("</body>");
+		out.println(AppDBPage.BODY.closingTag);
 		out.println("</html>");
 	}
 

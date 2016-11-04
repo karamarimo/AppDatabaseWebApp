@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
 import utility.AppDatabaseConnection;
-import utility.HtmlTag;
 
 @SuppressWarnings("serial")
 public class ReviewListServlet extends HttpServlet {
@@ -31,20 +30,16 @@ public class ReviewListServlet extends HttpServlet {
 
 		Integer aid = Integer.parseInt(request.getParameter("aid"));
 		
-		HtmlTag head = AppDBPage.makeHead();
-		HtmlTag body = AppDBPage.makeBody();
-
 		out.println("<html>");
-		out.println(head.openingTag);
+		out.println(AppDBPage.HEAD.openingTag);
 		out.println("<script type='text/javascript' src='table-popup.js'></script>");
-		out.println(head.closingTag);
-		out.println(body.openingTag);
+		out.println(AppDBPage.HEAD.closingTag);
+		out.println(AppDBPage.BODY_WITH_POPUP.openingTag);
 
 		out.println("<h3>レビュー一覧</h3>");
 		out.println("アプリID: " + aid);
 		
-		HtmlTag table = AppDBPage.makeTable();
-		out.println(table.openingTag);
+		out.println("<table class=table-compact>");
 		out.println("<thead><tr><th>レビューID</th><th>タイトル</th><th>レーティング</th></tr></thead>");
 		out.println("<tbody>");
 
@@ -88,8 +83,8 @@ public class ReviewListServlet extends HttpServlet {
 		}
 
 		out.println("</tbody>");
-		out.println(table.closingTag);
-		out.println(body.closingTag);
+		out.println("</table>");
+		out.println(AppDBPage.BODY_WITH_POPUP.closingTag);
 		out.println("</html>");
 	}
 

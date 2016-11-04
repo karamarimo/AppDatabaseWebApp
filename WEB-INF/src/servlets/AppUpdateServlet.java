@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utility.AppDBPage;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
@@ -36,7 +37,8 @@ public class AppUpdateServlet extends HttpServlet {
 		String updateDescription = request.getParameter("update_description");
 
 		out.println("<html>");
-		out.println("<body>");
+		out.println(AppDBPage.HEAD);
+		out.println(AppDBPage.BODY.openingTag);
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -106,7 +108,7 @@ public class AppUpdateServlet extends HttpServlet {
 			}
 		}
 
-		out.println("</body>");
+		out.println(AppDBPage.BODY.closingTag);
 		out.println("</html>");
 	}
 

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
 import utility.AppDatabaseConnection;
-import utility.HtmlTag;
 
 @SuppressWarnings("serial")
 public class AppEditServlet extends HttpServlet {
@@ -33,7 +32,7 @@ public class AppEditServlet extends HttpServlet {
 		
 		// no sidebar		
 		out.println("<html>");
-		out.println(AppDBPage.makeHead().whole());
+		out.println(AppDBPage.HEAD);
 		out.println("<body>");
 
 		Connection conn = null;

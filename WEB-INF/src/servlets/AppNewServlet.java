@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.HtmlTag;
 
 @SuppressWarnings("serial")
 public class AppNewServlet extends HttpServlet {
@@ -25,12 +24,8 @@ public class AppNewServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		out.println("<html>");
-		
-		out.println(AppDBPage.makeHead().whole());
-		
-		HtmlTag body = AppDBPage.makeBody();
-		
-		out.println(body.openingTag);
+		out.println(AppDBPage.HEAD.whole());		
+		out.println(AppDBPage.BODY.openingTag);
 
 		out.println("<h3>アプリ追加</h3>");
 		out.println("<form action='app_add' method='POST'>");
@@ -55,7 +50,7 @@ public class AppNewServlet extends HttpServlet {
 		out.println("<input type='submit' value='追加'>");
 		out.println("</form>");
 
-		out.println(body.closingTag);
+		out.println(AppDBPage.BODY.closingTag);
 		out.println("</html>");
 	}
 

@@ -3,7 +3,6 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,11 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.crypto.provider.RSACipher;
-
 import utility.AppDBPage;
 import utility.AppDatabaseConnection;
-import utility.HtmlTag;
 
 @SuppressWarnings("serial")
 public class AppPurchaseServlet extends HttpServlet {
@@ -33,23 +29,21 @@ public class AppPurchaseServlet extends HttpServlet {
 
 		String apps[] = request.getParameterValues("aid");
 		String uid = request.getParameter("uid");
-		HtmlTag body = AppDBPage.makeBody();
-		HtmlTag head = AppDBPage.makeHead();
 		
 		if (apps == null) {
 			out.println("<html>"
-					+ body.openingTag
+					+ AppDBPage.BODY.openingTag
 					+ "不正なパラメーターです。"
-					+ body.closingTag
+					+ AppDBPage.BODY.closingTag
 					+ "</html>");
 			return;
 		}
 
 		out.println("<html>");
-		out.println(head.openingTag);
+		out.println(AppDBPage.HEAD.openingTag);
 		out.println("<script type='text/javascript' src='js.cookie.js'></script>");
-		out.println(head.closingTag);
-		out.println(body.openingTag);
+		out.println(AppDBPage.HEAD.closingTag);
+		out.println(AppDBPage.BODY.openingTag);
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -159,7 +153,7 @@ public class AppPurchaseServlet extends HttpServlet {
 			}
 		}
 
-		out.println(body.closingTag);
+		out.println(AppDBPage.BODY.closingTag);
 		out.println("</html>");
 	}
 

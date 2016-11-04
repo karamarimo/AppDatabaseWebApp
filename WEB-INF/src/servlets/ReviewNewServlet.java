@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.HtmlTag;
 
 @SuppressWarnings("serial")
 public class ReviewNewServlet extends HttpServlet {
@@ -25,11 +24,10 @@ public class ReviewNewServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String aid = request.getParameter("aid");
-		HtmlTag body = AppDBPage.makeBody();
 
 		out.println("<html>");
-		out.println(AppDBPage.makeHead().whole());		
-		out.println(body.openingTag);
+		out.println(AppDBPage.HEAD);		
+		out.println(AppDBPage.BODY.openingTag);
 
 		out.println("<h3>新規レビュー</h3>");
 		out.println("<form action='review_add' method='POST'>");
@@ -51,7 +49,7 @@ public class ReviewNewServlet extends HttpServlet {
 		out.println("<input type='submit' value='投稿'>");
 		out.println("</form>");
 
-		out.println(body.closingTag);
+		out.println(AppDBPage.BODY.closingTag);
 		out.println("</html>");
 	}
 
