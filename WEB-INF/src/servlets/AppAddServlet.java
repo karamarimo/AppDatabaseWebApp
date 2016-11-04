@@ -41,6 +41,7 @@ public class AppAddServlet extends HttpServlet {
 		PreparedStatement selectAID = null;
 		PreparedStatement insertApp = null;
 		PreparedStatement insertAppDev = null;
+		Boolean updating = false;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
 			selectAID = conn.prepareStatement("SELECT MAX(aid) AS max_aid FROM apps");
@@ -55,6 +56,7 @@ public class AppAddServlet extends HttpServlet {
 			
 			// put 2 statements into one transaction
 			conn.setAutoCommit(false);
+			updating = true;
 			
 			int addAID = max_aid + 1;
 			insertApp = conn.prepareStatement(
@@ -82,13 +84,13 @@ public class AppAddServlet extends HttpServlet {
 			out.println("アプリID: " + addAID + "<br>");
 			out.println("アプリ名: " + addName + "<br>");
 			
-//			response.sendRedirect("/list");
+//			response.sendRedirect("/app_list_dev");
 		} catch (Exception e) {
 			out.println("エラーが発生しました。");
 			out.println("<br>");
 			out.println(e.getMessage());
 			e.printStackTrace();
-			if (conn != null) {
+			if (updating && conn != null) {
 				try {
 					System.err.println("transaction is being rolled back");
 					conn.rollback();
@@ -115,9 +117,6 @@ public class AppAddServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
-		out.println("<br/>");
-		out.println("<a href=\"list\">トップページに戻る</a>");
 
 		out.println("</body>");
 		out.println("</html>");

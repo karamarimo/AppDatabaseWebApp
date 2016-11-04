@@ -33,11 +33,14 @@ public class AppDetailServlet extends HttpServlet {
 		
 		String aid = request.getParameter("aid");
 		
-		HtmlTag body = AppDBPage.makeBody();
+		HtmlTag head = AppDBPage.makeHead();
 		
 		out.println("<html>");
-		out.println(AppDBPage.makeHead().whole());
-		out.println(body.openingTag);
+		out.println(head.openingTag);
+		out.println("<script type='text/javascript' src='js.cookie.js'></script>");
+		out.println("<script type='text/javascript' src='add-to-cart.js'></script>");
+		out.println(head.closingTag);
+		out.println("<body>");
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -122,15 +125,17 @@ public class AppDetailServlet extends HttpServlet {
 			}
 		}
 
-		out.println("<form action='create_review' method='GET'>");
-		out.println("<input type='hidden' name='review_aid' value='" + aid + "'>");
+		out.println("<form action='review_new' method='GET'>");
+		out.println("<input type='hidden' name='aid' value='" + aid + "'>");
 		out.println("<input type='submit' value='レビューを書く'>");
 		out.println("</form>");
 		
-//		out.println("<br/>");
-//		out.println("<a href='list'>トップページに戻る</a>");
+		out.println("<form class='form-add-to-cart'>");
+		out.println("<input type='hidden' name='aid' value='" + aid + "'>");
+		out.println("<input type='submit' value='カートに入れる'>");
+		out.println("</form>");
 
-		out.println(body.closingTag);
+		out.println("</body>");
 		out.println("</html>");
 	}
 

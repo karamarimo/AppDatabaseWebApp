@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -14,10 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
-public class ReviewUpdateServlet extends HttpServlet {
+public class ReviewAddServlet extends HttpServlet {
 
 	public void init() throws ServletException {
-		
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -26,59 +26,75 @@ public class ReviewUpdateServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String updateRID = request.getParameter("rid");
-		String updateUID = request.getParameter("uid");
-		String updateTitle = request.getParameter("rtitle");
-		String updateRate = request.getParameter("rrate");
-		String updateContent = request.getParameter("rcontent");
+		String aid = request.getParameter("aid");
+		String uid = request.getParameter("uid");
+		String rtitle = request.getParameter("rtitle");
+		String rrate = request.getParameter("rrate");
+		String rcontent = request.getParameter("rcontent");
 
 		out.println("<html>");
 		out.println("<body>");
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
+		Boolean updaating = false;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
+			stmt = conn.prepareStatement("SELECT MAX(rid) AS max_rid FROM reviews");
+			
+			int max_rid = 0;
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				max_rid = rs.getInt("max_rid");
+			}
+			stmt.close();
+			rs.close();
+			
+			// put 2 statements into one transaction
 			conn.setAutoCommit(false);
+			updaating = true;
 			
-			stmt = conn.prepareStatement("UPDATE reviews SET "
-					+ "rtitle = ?, rrate = ?, rcontent = ? "
-					+ "WHERE rid = ?");
-			stmt.setInt(4, Integer.parseInt(updateRID));
-			stmt.setString(1, updateTitle);
-			stmt.setInt(2, Integer.parseInt(updateRate));
-			stmt.setString(3, updateContent);
-			stmt.executeUpdate();
-			stmt.close();
-			
+			// insert into reviews
+			Integer rid = max_rid + 1;
 			stmt = conn.prepareStatement(
-					"UPDATE review_user SET uid = ? WHERE rid = ?");
-			stmt.setInt(1, Integer.parseInt(updateUID));
-			stmt.setInt(2, Integer.parseInt(updateRID));
+					"INSERT INTO reviews (rid,rtitle,rrate,rcontent) "
+					+ "VALUES (?, ?, ?, ?)");
+			stmt.setInt(1, rid);
+			stmt.setString(2, rtitle);
+			stmt.setInt(3, Integer.parseInt(rrate));
+			stmt.setString(4, rcontent);
 			stmt.executeUpdate();
-			stmt.close();
-
+			
+			// insert into review_app
+			stmt = conn.prepareStatement(
+					"INSERT INTO review_app (rid,aid)"
+					+ "VALUES (?, ?)");
+			stmt.setInt(1, rid);
+			stmt.setInt(2, Integer.parseInt(aid));
+			stmt.executeUpdate();
+			
+			// insert into review_user
+			stmt = conn.prepareStatement(
+					"INSERT INTO review_user (rid,uid)"
+					+ "VALUES (?, ?)");
+			stmt.setInt(1, rid);
+			stmt.setInt(2, Integer.parseInt(uid));
+			stmt.executeUpdate();
+			
+			// commit transaction
 			conn.commit();
 			
-			out.println("レビューを更新しました。<br/><br/>");
-			out.println("レビューID: " + updateRID + "<br/>");
-		} catch (IllegalArgumentException e) {
-			out.println("パラメーターの形式が正しくありません。");
-			e.printStackTrace();
-			if (conn != null) {
-				try {
-					System.err.println("transaction is being rolled back");
-					conn.rollback();
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
-			}
-		} catch (SQLException e) {
+			out.println("レビューを投稿しました。<br>");
+			out.println("レビューID: " + rid + "<br>");
+			
+//			response.sendRedirect("/app_list_dev");
+		} catch (Exception e) {
 			out.println("エラーが発生しました。");
 			out.println("<br>");
 			out.println(e.getMessage());
 			e.printStackTrace();
-			if (conn != null) {
+			// if error thrown during transaction, roll it back
+			if (updaating && conn != null) {
 				try {
 					System.err.println("transaction is being rolled back");
 					conn.rollback();

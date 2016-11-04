@@ -5,6 +5,7 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,21 +31,21 @@ public class AppListDevServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-
-		out.println("<html>");
 		
+		String query = request.getParameter("query");
 		HtmlTag head = AppDBPage.makeHead();
 		HtmlTag body = AppDBPage.makeBody();
 		HtmlTag table = AppDBPage.makeTable();
 		
+		out.println("<html>");
 		out.println(head.openingTag);
 		out.println("<script type='text/javascript' src='table-popup.js'></script>");
 		out.println(head.closingTag);
 		out.println(body.openingTag);
 
 		out.println("<h2>アプリ一覧</h2>");
-		out.println("<form class='search-box' action='search' method='GET'>");
-		out.println("<input type='search' name='search_name' placeholder='search for app...'>");
+		out.println("<form class='search-box' action='list' method='GET'>");
+		out.println("<input type='search' name='query' placeholder='search for app...'>");
 		out.println("<input type='submit' value='GO'>");
 		out.println("</form>");
 
@@ -52,12 +53,19 @@ public class AppListDevServlet extends HttpServlet {
 		out.println("<thead><tr><th>アプリID</th><th>名前</th><th>価格</th></tr></thead>");
 		out.println("<tbody>");
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
-			stmt = conn.createStatement();
+			if (query == null || query.isEmpty()) {
+				stmt = conn.prepareStatement("SELECT aid,aname,aprice FROM apps ORDER BY aid");
+			} else {
+				stmt = conn.prepareStatement(
+						"SELECT aid,aname,aprice FROM apps "
+						+ "WHERE UPPER(aname) LIKE UPPER(?) ORDER BY aid");
+				stmt.setString(1, "%" + query + "%");
+			}
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM apps ORDER BY aid");
+			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				int aid = rs.getInt("aid");
 				String name = rs.getString("aname");

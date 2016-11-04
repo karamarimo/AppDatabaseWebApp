@@ -21,11 +21,6 @@
   </servlet>
 
   <servlet>
-    <servlet-name>AppSearch</servlet-name>
-    <servlet-class>servlets.SearchServlet</servlet-class>
-  </servlet>
-
-  <servlet>
     <servlet-name>AppNew</servlet-name>
     <servlet-class>servlets.AppNewServlet</servlet-class>
   </servlet>
@@ -50,6 +45,16 @@
     <servlet-class>servlets.DeleteServlet</servlet-class>
   </servlet>
   
+  <servlet>
+    <servlet-name>AppCart</servlet-name>
+    <servlet-class>servlets.AppCartServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>AppPurchase</servlet-name>
+    <servlet-class>servlets.AppPurchaseServlet</servlet-class>
+  </servlet>
+ 
  <servlet>
     <servlet-name>ReviewList</servlet-name>
     <servlet-class>servlets.ReviewListServlet</servlet-class>
@@ -70,9 +75,19 @@
     <servlet-class>servlets.ReviewDeleteServlet</servlet-class>
   </servlet>
 
+ <servlet>
+    <servlet-name>ReviewNew</servlet-name>
+    <servlet-class>servlets.ReviewNewServlet</servlet-class>
+  </servlet>
+
+ <servlet>
+    <servlet-name>ReviewAdd</servlet-name>
+    <servlet-class>servlets.ReviewAddServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>AppListDev</servlet-name>
-    <url-pattern>/list</url-pattern>
+    <url-pattern>/app_list_dev</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>
@@ -83,11 +98,6 @@
   <servlet-mapping>
     <servlet-name>AppDetail</servlet-name>
     <url-pattern>/app_detail</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>AppSearch</servlet-name>
-    <url-pattern>/search</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
@@ -116,6 +126,16 @@
   </servlet-mapping>
   
   <servlet-mapping>
+    <servlet-name>AppCart</servlet-name>
+    <url-pattern>/app_cart</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>AppPurchase</servlet-name>
+    <url-pattern>/app_purchase</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
     <servlet-name>ReviewList</servlet-name>
     <url-pattern>/review_list</url-pattern>
   </servlet-mapping>
@@ -133,6 +153,16 @@
  <servlet-mapping>
     <servlet-name>ReviewDelete</servlet-name>
     <url-pattern>/review_delete</url-pattern>
+  </servlet-mapping>
+
+ <servlet-mapping>
+    <servlet-name>ReviewNew</servlet-name>
+    <url-pattern>/review_new</url-pattern>
+  </servlet-mapping>
+
+ <servlet-mapping>
+    <servlet-name>ReviewAdd</servlet-name>
+    <url-pattern>/review_add</url-pattern>
   </servlet-mapping>
 
 </web-app>

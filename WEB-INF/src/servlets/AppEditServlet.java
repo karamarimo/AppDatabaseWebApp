@@ -31,11 +31,10 @@ public class AppEditServlet extends HttpServlet {
 		
 		String aid = request.getParameter("aid");
 		
-		HtmlTag body = AppDBPage.makeBody();
-		
+		// no sidebar		
 		out.println("<html>");
 		out.println(AppDBPage.makeHead().whole());
-		out.println(body.openingTag);
+		out.println("<body>");
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -54,7 +53,7 @@ public class AppEditServlet extends HttpServlet {
 			while (rs.next()) {
 				String did = rs.getString("did");
 				out.println("開発者ID: ");
-				out.println("<input type='text' name='update_did' value='" + did + "'>");
+				out.println("<input type='number' name='update_did' min='0' value='" + did + "'>");
 				out.println("<br>");
 			}
 			rs.close();
@@ -66,7 +65,7 @@ public class AppEditServlet extends HttpServlet {
 			while (rs.next()) {
 				String name = rs.getString("aname");
 				String version = rs.getString("aversion");
-				int price = rs.getInt("aprice");
+				Integer price = rs.getInt("aprice");
 				String release = rs.getString("arelease_date");
 				String desc = rs.getString("adescription");
 				
@@ -112,10 +111,7 @@ public class AppEditServlet extends HttpServlet {
 		out.println("<input class='delete_button' type='submit' value='削除'>");
 		out.println("</form>");
 
-//		out.println("<br/>");
-//		out.println("<a href='list'>トップページに戻る</a>");
-
-		out.println(body.closingTag);
+		out.println("</body>");
 		out.println("</html>");
 	}
 

@@ -35,7 +35,7 @@ public class ReviewEditServlet extends HttpServlet {
 		
 		out.println("<html>");
 		out.println(AppDBPage.makeHead().whole());
-		out.println(body.openingTag);
+		out.println("<body>");
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -54,7 +54,7 @@ public class ReviewEditServlet extends HttpServlet {
 			while (rs.next()) {
 				String uid = rs.getString("uid");
 				out.println("投稿者ユーザID: ");
-				out.println("<input type='text' name='uid' value='" + uid + "'>");
+				out.println("<input type='number' name='uid' min='0' value='" + uid + "'>");
 				out.println("<br>");
 			}
 			rs.close();
@@ -104,10 +104,7 @@ public class ReviewEditServlet extends HttpServlet {
 		out.println("<input class='delete_button' type='submit' value='削除'>");
 		out.println("</form>");
 
-//		out.println("<br/>");
-//		out.println("<a href='list'>トップページに戻る</a>");
-
-		out.println(body.closingTag);
+		out.println("</body>");
 		out.println("</html>");
 	}
 

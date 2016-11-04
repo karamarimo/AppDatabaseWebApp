@@ -1,14 +1,17 @@
 package utility;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 public class AppDBPage {
 	static public HtmlTag makeHead() {
 		HtmlTag header = new HtmlTag(
 				"<head>" 
-				+ "<title>AppDB</title>"
 				+ "<link rel='icon' href='/icon.png'>"
 				+ "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>"
 				+ "<link rel='stylesheet' type='text/css' href='appdb.css'>"
-				+ "<script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>", 
+				+ "<script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.min.js'></script>", 
 				"</head>");
 		return header;
 	}
@@ -45,7 +48,7 @@ public class AppDBPage {
 				+ "<div id='nav-wrapper'>"
 				+ "<h3>開発者用</h3>"
 				+ "<ul>"
-				+ "<li><a href='/list'>アプリ一覧</a></li>"
+				+ "<li><a href='/app_list_dev'>アプリ一覧</a></li>"
 				+ "<li><a href='/app_new'>アプリ追加</a></li>"
 				+ "</ul>"
 				+ "<h3>一般ユーザ用</h3>"
@@ -63,5 +66,11 @@ public class AppDBPage {
 				+ "", 
 				"</form>");
 		return form;
+	}
+	
+	static public Date getCurrentDate() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(new java.util.Date());
+        return Date.valueOf(date);
 	}
 }

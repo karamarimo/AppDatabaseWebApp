@@ -59,9 +59,6 @@ public class ReviewDeleteServlet extends HttpServlet {
 			}
 		}
 
-		out.println("<br/>");
-		out.println("<a href=\"list\">トップページに戻る</a>");
-
 		out.println("</body>");
 		out.println("</html>");
 	}
