@@ -48,7 +48,7 @@ public class AppCartServlet extends HttpServlet {
 		out.println(AppDBPage.BODY.openingTag);
 		
 		out.println("<h2>カート内のアプリ</h2>");
-		out.println("<table class=table-compact>");
+		out.println("<table class='db-table'>");
 		out.println("<thead><tr><th>アプリID</th><th>名前</th><th>価格</th></tr></thead>");
 		out.println("<tbody>");
 		

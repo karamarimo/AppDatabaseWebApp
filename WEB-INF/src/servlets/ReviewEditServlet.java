@@ -41,18 +41,18 @@ public class ReviewEditServlet extends HttpServlet {
 			
 			out.println("<h2>レビュー編集</h2>");
 			out.println("<form action='review_update' method='POST'>");
-			out.println("レビューID: " + rid);
+			out.println("<span>レビューID</span>");
+			out.println("<span>" + rid + "</span>");
 			out.println("<input type='hidden' name='rid' + value='" + rid + "'>");
-			out.println("<br>");
 			
 			stmt = conn.prepareStatement("SELECT * FROM review_user WHERE rid = ?");
 			stmt.setInt(1, Integer.parseInt(rid));
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String uid = rs.getString("uid");
-				out.println("投稿者ユーザID: ");
-				out.println("<input type='number' name='uid' min='0' value='" + uid + "'>");
-				out.println("<br>");
+				out.println("<span>投稿者ユーザID</span>");
+				out.println("<span>" + uid + "</span>");
+				out.println("<input type='hidden' name='uid' + value='" + uid + "'>");
 			}
 			rs.close();
 			stmt.close();
@@ -65,15 +65,12 @@ public class ReviewEditServlet extends HttpServlet {
 				int rate = rs.getInt("rrate");
 				String content = rs.getString("rcontent");
 				
-				out.println("タイトル: ");
-				out.println("<input type='text' name='rtitle' value='" + title + "'>");
-				out.println("<br>");
-				out.println("レーティング: ");
-				out.println("<input type='number' name='rrate' min='1' max='5' value='" + rate + "'>");
-				out.println("<br>");
-				out.println("内容: ");
-				out.println("<input type='text' name='rcontent' value='" + content + "'>");
-				out.println("<br>");
+				out.println("<span>タイトル</span>");
+				out.println("<input type='text' name='rtitle' required value='" + title + "'>");
+				out.println("<span>レーティング</span>");
+				out.println("<input type='number' name='rrate' required min='1' max='5' value='" + rate + "'>");
+				out.println("<span>内容</span>");
+				out.println("<textarea name='rcontent'>" + content + "</textarea>");
 			}
 			rs.close();
 			stmt.close();

@@ -16,10 +16,10 @@ import utility.AppDBPage;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
-public class ReviewListServlet extends HttpServlet {
+public class UserEditServlet extends HttpServlet {
 
-	public void init() throws ServletException {
-
+	public void init() {
+		
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -27,53 +27,56 @@ public class ReviewListServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-
-		Integer aid = Integer.parseInt(request.getParameter("aid"));
 		
+		String uid = request.getParameter("uid");
+		
+		// no sidebar		
 		out.println("<html>");
-		out.println(AppDBPage.HEAD.openingTag);
-		out.println("<script type='text/javascript' src='table-popup.js'></script>");
-		out.println(AppDBPage.HEAD.closingTag);
+		out.println(AppDBPage.HEAD);
 		out.println(AppDBPage.BODY_WITH_POPUP.openingTag);
-
-		out.println("<h3>レビュー一覧</h3>");
-		out.println("アプリID: " + aid);
-		
-		out.println("<table class='db-table table-popup'>");
-		out.println("<thead><tr><th>レビューID</th><th>タイトル</th><th>レーティング</th></tr></thead>");
-		out.println("<tbody>");
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
 			
-			stmt = conn.prepareStatement(
-					"SELECT rid,rtitle,rrate "
-					+ "FROM reviews NATURAL JOIN review_app "
-					+ "WHERE aid = ?");
-			stmt.setInt(1, aid);
+			out.println("<h2>アカウント情報編集</h2>");
+			out.println("<form action='user_update' method='POST'>");
+			out.println("<span>アカウントID</span>");
+			out.println("<span>" + uid + "</span>");
+			out.println("<input type='hidden' name='uid' + value='" + uid + "'>");
+			
+			stmt = conn.prepareStatement("SELECT * FROM users WHERE uid = ?");
+			stmt.setInt(1, Integer.parseInt(uid));
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				Integer rid = rs.getInt("rid");
-				String title = rs.getString("rtitle");
-				Integer rate = rs.getInt("rrate");
-
-				out.println("<tr data-href='/review_edit?rid="+ rid + "'>");
-				out.println("<td align='right'>" + rid + "</td>");
-				out.println("<td align='left'>" + title + "</td>");
-				out.println("<td align='right'>" + rate + "</td>");
-				out.println("</tr>");
+				String name = rs.getString("uname");
+				String birth = rs.getString("ubirth");
+				Boolean gender = rs.getBoolean("ugender");
+				
+				out.println("<span>アプリ名</span>");
+				out.println("<input type='text' name='uname' required value='" + name + "'>");
+				out.println("<span>誕生日</span>");
+				out.println("<input type='date' name='ubirth' required value='" + birth + "'>");
+				out.println("<span>性別</span>");
+				out.println("<select name='ugender'>");
+				out.println("<option value='0'" + (gender ? "" : " selected") + ">男性</option>");
+				out.println("<option value='1'" + (gender ? " selected" : "") + ">女性</option>");
+				out.println("</select>");
 			}
 			rs.close();
 			stmt.close();
+			
+			out.println("<input type='submit' value='更新'>");
+			out.println("</form>");
+
 		} catch (Exception e) {
+			out.println("エラーが発生しました。");
+			out.println("<br>");
+			out.println(e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {
-				if (stmt != null) {
-					stmt.close();
-				}
 				if (conn != null) {
 					conn.close();
 				}
@@ -82,8 +85,6 @@ public class ReviewListServlet extends HttpServlet {
 			}
 		}
 
-		out.println("</tbody>");
-		out.println("</table>");
 		out.println(AppDBPage.BODY_WITH_POPUP.closingTag);
 		out.println("</html>");
 	}

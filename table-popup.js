@@ -1,5 +1,5 @@
 $(function() {
-	$('.table-compact tr').click(function (event) {
+	$('.table-popup tr').click(function (event) {
 		var ref = $(this).attr('data-href');
 		if (ref) {
 			// window.location.href = ref;

@@ -31,21 +31,17 @@ public class ReviewNewServlet extends HttpServlet {
 
 		out.println("<h3>新規レビュー</h3>");
 		out.println("<form action='review_add' method='POST'>");
-		out.println("アプリID: " + aid);
+		out.println("<span>アプリID</span>");
+		out.println("<span>" + aid + "</span>");
 		out.println("<input type='hidden' name='aid' value='" + aid + "'>");
-		out.println("<br>");
-		out.println("ユーザID: ");
-		out.println("<input type='text' name='uid'>");
-		out.println("<br>");
-		out.println("タイトル: ");
-		out.println("<input type='text' name='rtitle'>");
-		out.println("<br>");
-		out.println("レーティング: ");
-		out.println("<input type='number' name='rrate' min='1' max='5' value='5'>");
-		out.println("<br>");
-		out.println("内容: ");
-		out.println("<input type='text' name='rcontent'>");
-		out.println("<br>");
+		out.println("<span>ユーザID</span>");
+		out.println("<input type='number' min='0' name='uid' required>");
+		out.println("<span>タイトル</span>");
+		out.println("<input type='text' name='rtitle' required>");
+		out.println("<span>レーティング</span>");
+		out.println("<input type='number' name='rrate' min='1' max='5' value='5' required>");
+		out.println("<span>内容</span>");
+		out.println("<textarea name='rcontent'></textarea>");
 		out.println("<input type='submit' value='投稿'>");
 		out.println("</form>");
 

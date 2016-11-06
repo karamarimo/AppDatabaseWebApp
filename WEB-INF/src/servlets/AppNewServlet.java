@@ -29,24 +29,18 @@ public class AppNewServlet extends HttpServlet {
 
 		out.println("<h3>アプリ追加</h3>");
 		out.println("<form action='app_add' method='POST'>");
-		out.println("開発者ID: ");
-		out.println("<input type='text' name='add_did'>");
-		out.println("<br>");
-		out.println("アプリ名: ");
-		out.println("<input type='text' name='add_name'>");
-		out.println("<br>");
-		out.println("バージョン: ");
-		out.println("<input type='text' name='add_version'>");
-		out.println("<br>");
-		out.println("価格: ");
-		out.println("<input type='number' name='add_price' min='0'>");
-		out.println("<br>");
-		out.println("リリース日: ");
-		out.println("<input type='date' name='add_release'>");
-		out.println("<br>");
-		out.println("説明: ");
-		out.println("<input type='text' name='add_description'>");
-		out.println("<br>");
+		out.println("<span>開発者ID</span>");
+		out.println("<input type='text' name='add_did' required>");
+		out.println("<span>アプリ名</span>");
+		out.println("<input type='text' name='add_name' required>");
+		out.println("<span>バージョン</span>");
+		out.println("<input type='text' name='add_version' required>");
+		out.println("<span>価格</span>");
+		out.println("<input type='number' name='add_price' min='0' required>");
+		out.println("<span>リリース日</span>");
+		out.println("<input type='date' name='add_release' required>");
+		out.println("<span>説明</span>");
+		out.println("<textarea name='add_description'></textarea>");
 		out.println("<input type='submit' value='追加'>");
 		out.println("</form>");
 

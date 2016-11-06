@@ -1,22 +1,35 @@
-.table-compact {
+.db-table {
 	border-collapse: collapse;
 }
 
-.table-compact td, .table-compact th {
+.db-table td, .db-table th {
 	padding: 5px 20px;
 	border: 1px solid #CCC;
 }
 
-.table-compact th {
+.db-table th {
 	background-color: #DDE;
 }
 
-.table-compact tr:nth-child(even) {
+.db-table tr:nth-child(even) {
 	background-color: #EEE;
 }
 
-.table-compact tr:hover {
+.db-table tr:hover {
 	background-color: #EFF;
+}
+
+form span, form input {
+	display: block;
+}
+
+form span {
+	font-weight: bold;
+}
+
+textarea {
+	width: 300px;
+	height: 100px;
 }
 
 body {
@@ -103,7 +116,7 @@ input {
 #popup-content {
 	overflow: auto;
 	width: 400px;
-	padding: 30px;
+	padding: 20px 50px;
 	background-color: #FFF;
 	border-radius: 10px;
 	margin: 10px 0;

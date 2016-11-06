@@ -47,7 +47,7 @@ public class AppListUserServlet extends HttpServlet {
 		out.println("<input type='submit' value='GO'>");
 		out.println("</form>");
 
-		out.println("<table class=table-compact>");
+		out.println("<table class='db-table table-popup'>");
 		out.println("<thead><tr><th>アプリID</th><th>名前</th><th>価格</th></tr></thead>");
 		out.println("<tbody>");
 		Connection conn = null;

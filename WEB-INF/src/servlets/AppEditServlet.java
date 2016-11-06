@@ -42,18 +42,18 @@ public class AppEditServlet extends HttpServlet {
 			
 			out.println("<h2>アプリ編集</h2>");
 			out.println("<form action='app_update' method='POST'>");
-			out.println("アプリID: " + aid);
+			out.println("<span>アプリID</span>");
+			out.println("<span>" + aid + "</span>");
 			out.println("<input type='hidden' name='update_aid' + value='" + aid + "'>");
-			out.println("<br>");
 			
 			stmt = conn.prepareStatement("SELECT * FROM app_dev WHERE aid = ?");
 			stmt.setInt(1, Integer.parseInt(aid));
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String did = rs.getString("did");
-				out.println("開発者ID: ");
-				out.println("<input type='number' name='update_did' min='0' value='" + did + "'>");
-				out.println("<br>");
+				out.println("<span>開発者ID</span>");
+				out.println("<span>" + did + "</span>");
+				out.println("<input type='hidden' name='update_did' + value='" + did + "'>");
 			}
 			rs.close();
 			stmt.close();
@@ -68,21 +68,16 @@ public class AppEditServlet extends HttpServlet {
 				String release = rs.getString("arelease_date");
 				String desc = rs.getString("adescription");
 				
-				out.println("アプリ名: ");
-				out.println("<input type='text' name='update_name' value='" + name + "'>");
-				out.println("<br>");
-				out.println("バージョン: ");
-				out.println("<input type='text' name='update_version' value='" + version + "'>");
-				out.println("<br>");
-				out.println("価格: ");
-				out.println("<input type='number' name='update_price' min='0' value='" + price + "'>");
-				out.println("<br>");
-				out.println("リリース日: ");
-				out.println("<input type='date' name='update_release' value='" + release + "'>");
-				out.println("<br>");
-				out.println("説明: ");
-				out.println("<input type='text' name='update_description' value='" + desc + "'>");
-				out.println("<br>");				
+				out.println("<span>アプリ名</span>");
+				out.println("<input type='text' name='update_name' required value='" + name + "'>");
+				out.println("<span>バージョン</span>");
+				out.println("<input type='text' name='update_version' required value='" + version + "'>");
+				out.println("<span>価格</span>");
+				out.println("<input type='number' name='update_price' required min='0' value='" + price + "'>");
+				out.println("<span>リリース日</span>");
+				out.println("<input type='date' name='update_release' required value='" + release + "'>");
+				out.println("<span>説明</span>");
+				out.println("<textarea name='update_description'>" + desc + "</textarea>");
 			}
 			rs.close();
 			stmt.close();

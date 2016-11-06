@@ -12,8 +12,6 @@ public class AppDBPage {
 				+ "<link rel='stylesheet' type='text/css' href='appdb.css'>"
 				+ "<script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.min.js'></script>", 
 				"</head>");
-
-//	public static final HtmlTag TABLE = new HtmlTag("<table class=table-compact>", "</table>");
 	
 	public static final HtmlTag JS_WARNING_TAG = new HtmlTag(
 				"<noscript>"

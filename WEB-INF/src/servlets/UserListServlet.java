@@ -16,10 +16,10 @@ import utility.AppDBPage;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
-public class ReviewListServlet extends HttpServlet {
+public class UserListServlet extends HttpServlet {
 
 	public void init() throws ServletException {
-
+		
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -27,53 +27,60 @@ public class ReviewListServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-
-		Integer aid = Integer.parseInt(request.getParameter("aid"));
+		
+		String query = request.getParameter("query");
 		
 		out.println("<html>");
 		out.println(AppDBPage.HEAD.openingTag);
-		out.println("<script type='text/javascript' src='table-popup.js'></script>");
+		out.println("<script type='text/javascript' src='table-link.js'></script>");
 		out.println(AppDBPage.HEAD.closingTag);
 		out.println(AppDBPage.BODY_WITH_POPUP.openingTag);
 
-		out.println("<h3>レビュー一覧</h3>");
-		out.println("アプリID: " + aid);
-		
-		out.println("<table class='db-table table-popup'>");
-		out.println("<thead><tr><th>レビューID</th><th>タイトル</th><th>レーティング</th></tr></thead>");
-		out.println("<tbody>");
+		out.println("<h2>アカウント一覧</h2>");
+		out.println("<form class='search-box' action='user_list' method='GET'>");
+		out.println("<input type='search' name='query' placeholder='search for user name...'>");
+		out.println("<input type='submit' value='GO'>");
+		out.println("</form>");
 
+		out.println("<table class='db-table table-link'>");
+		out.println("<thead><tr><th>アカウントID</th><th>名前</th><th>誕生日</th><th>性別</th></tr></thead>");
+		out.println("<tbody>");
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
-			
-			stmt = conn.prepareStatement(
-					"SELECT rid,rtitle,rrate "
-					+ "FROM reviews NATURAL JOIN review_app "
-					+ "WHERE aid = ?");
-			stmt.setInt(1, aid);
+			if (query == null || query.isEmpty()) {
+				stmt = conn.prepareStatement("SELECT uid,uname,ubirth,ugender FROM users ORDER BY uid");
+			} else {
+				stmt = conn.prepareStatement(
+						"SELECT uid,uname,ubirth,ugender FROM users "
+						+ "WHERE UPPER(uname) LIKE UPPER(?) ORDER BY uid");
+				stmt.setString(1, "%" + query + "%");
+			}
+
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				Integer rid = rs.getInt("rid");
-				String title = rs.getString("rtitle");
-				Integer rate = rs.getInt("rrate");
+				int uid = rs.getInt("uid");
+				String name = rs.getString("uname");
+				String birth = rs.getDate("ubirth").toString();
+				String gender = rs.getBoolean("ugender") ? "女性" : "男性"; 
 
-				out.println("<tr data-href='/review_edit?rid="+ rid + "'>");
-				out.println("<td align='right'>" + rid + "</td>");
-				out.println("<td align='left'>" + title + "</td>");
-				out.println("<td align='right'>" + rate + "</td>");
+				out.println("<tr data-href='/user_detail?uid="+ uid + "'>");
+				out.println("<td align='right'>" + uid + "</td>");
+				out.println("<td align='left'>" + name + "</td>");
+				out.println("<td align='left'>" + birth + "</td>");
+				out.println("<td align='left'>" + gender + "</td>");
 				out.println("</tr>");
 			}
 			rs.close();
 			stmt.close();
 		} catch (Exception e) {
+			out.println("エラーが発生しました。");
+			out.println("<br>");
+			out.println(e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {
-				if (stmt != null) {
-					stmt.close();
-				}
 				if (conn != null) {
 					conn.close();
 				}
@@ -81,9 +88,8 @@ public class ReviewListServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
 		out.println("</tbody>");
-		out.println("</table>");
+		out.println("</table");
 		out.println(AppDBPage.BODY_WITH_POPUP.closingTag);
 		out.println("</html>");
 	}
