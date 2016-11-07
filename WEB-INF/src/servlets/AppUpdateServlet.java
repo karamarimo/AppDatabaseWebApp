@@ -29,7 +29,6 @@ public class AppUpdateServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String updateAID = request.getParameter("update_aid");
-		String updateDID = request.getParameter("update_did");
 		String updateName = request.getParameter("update_name");
 		String updateVersion = request.getParameter("update_version");
 		String updatePrice = request.getParameter("update_price");
@@ -44,7 +43,6 @@ public class AppUpdateServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
-			conn.setAutoCommit(false);
 			
 			stmt = conn.prepareStatement("UPDATE apps SET "
 					+ "aname = ?, aversion = ?, aprice = ?, arelease_date = ?, adescription = ? "
@@ -58,49 +56,23 @@ public class AppUpdateServlet extends HttpServlet {
 			stmt.executeUpdate();
 			stmt.close();
 			
-			stmt = conn.prepareStatement(
-					"UPDATE app_dev SET did = ? WHERE aid = ?");
-			stmt.setInt(1, Integer.parseInt(updateDID));
-			stmt.setInt(2, Integer.parseInt(updateAID));
-			stmt.executeUpdate();
-			stmt.close();
-
-			conn.commit();
-			
 			out.println("以下のアプリを更新しました。<br/><br/>");
 			out.println("アプリID: " + updateAID + "<br/>");
 			out.println("アプリ名: " + updateName + "<br/>");
 		} catch (IllegalArgumentException e) {
 			out.println("パラメーターの形式が正しくありません。");
 			e.printStackTrace();
-			if (conn != null) {
-				try {
-					System.err.println("transaction is being rolled back");
-					conn.rollback();
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
-			}
 		} catch (SQLException e) {
 			out.println("エラーが発生しました。");
 			out.println("<br>");
 			out.println(e.getMessage());
 			e.printStackTrace();
-			if (conn != null) {
-				try {
-					System.err.println("transaction is being rolled back");
-					conn.rollback();
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
-			}
 		} finally {
 			try {
 				if (stmt != null) {
 					stmt.close();
 				}
 				if (conn != null) {
-					conn.setAutoCommit(true);
 					conn.close();
 				}
 			} catch (SQLException e) {

@@ -28,7 +28,6 @@ public class ReviewUpdateServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String updateRID = request.getParameter("rid");
-		String updateUID = request.getParameter("uid");
 		String updateTitle = request.getParameter("rtitle");
 		String updateRate = request.getParameter("rrate");
 		String updateContent = request.getParameter("rcontent");
@@ -41,7 +40,6 @@ public class ReviewUpdateServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
-			conn.setAutoCommit(false);
 			
 			stmt = conn.prepareStatement("UPDATE reviews SET "
 					+ "rtitle = ?, rrate = ?, rcontent = ? "
@@ -53,48 +51,22 @@ public class ReviewUpdateServlet extends HttpServlet {
 			stmt.executeUpdate();
 			stmt.close();
 			
-			stmt = conn.prepareStatement(
-					"UPDATE review_user SET uid = ? WHERE rid = ?");
-			stmt.setInt(1, Integer.parseInt(updateUID));
-			stmt.setInt(2, Integer.parseInt(updateRID));
-			stmt.executeUpdate();
-			stmt.close();
-
-			conn.commit();
-			
 			out.println("レビューを更新しました。<br/><br/>");
 			out.println("レビューID: " + updateRID + "<br/>");
 		} catch (IllegalArgumentException e) {
 			out.println("パラメーターの形式が正しくありません。");
 			e.printStackTrace();
-			if (conn != null) {
-				try {
-					System.err.println("transaction is being rolled back");
-					conn.rollback();
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
-			}
 		} catch (SQLException e) {
 			out.println("エラーが発生しました。");
 			out.println("<br>");
 			out.println(e.getMessage());
 			e.printStackTrace();
-			if (conn != null) {
-				try {
-					System.err.println("transaction is being rolled back");
-					conn.rollback();
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
-			}
 		} finally {
 			try {
 				if (stmt != null) {
 					stmt.close();
 				}
 				if (conn != null) {
-					conn.setAutoCommit(true);
 					conn.close();
 				}
 			} catch (SQLException e) {

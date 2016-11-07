@@ -53,7 +53,6 @@ public class AppEditServlet extends HttpServlet {
 				String did = rs.getString("did");
 				out.println("<span>開発者ID</span>");
 				out.println("<span>" + did + "</span>");
-				out.println("<input type='hidden' name='update_did' + value='" + did + "'>");
 			}
 			rs.close();
 			stmt.close();

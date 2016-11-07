@@ -52,7 +52,6 @@ public class ReviewEditServlet extends HttpServlet {
 				String uid = rs.getString("uid");
 				out.println("<span>投稿者ユーザID</span>");
 				out.println("<span>" + uid + "</span>");
-				out.println("<input type='hidden' name='uid' + value='" + uid + "'>");
 			}
 			rs.close();
 			stmt.close();
