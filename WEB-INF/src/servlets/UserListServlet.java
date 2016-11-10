@@ -34,12 +34,11 @@ public class UserListServlet extends HttpServlet {
 		out.println(AppDBPage.HEAD.openingTag);
 		out.println("<script type='text/javascript' src='table-link.js'></script>");
 		out.println(AppDBPage.HEAD.closingTag);
-		out.println(AppDBPage.BODY_WITH_POPUP.openingTag);
+		out.println(AppDBPage.BODY.openingTag);
 
 		out.println("<h2>アカウント一覧</h2>");
 		out.println("<form class='search-box' action='user_list' method='GET'>");
 		out.println("<input type='search' name='query' placeholder='search for user name...'>");
-		out.println("<input type='submit' value='GO'>");
 		out.println("</form>");
 
 		out.println("<table class='db-table table-link'>");
@@ -90,7 +89,7 @@ public class UserListServlet extends HttpServlet {
 		}
 		out.println("</tbody>");
 		out.println("</table");
-		out.println(AppDBPage.BODY_WITH_POPUP.closingTag);
+		out.println(AppDBPage.BODY.closingTag);
 		out.println("</html>");
 	}
 

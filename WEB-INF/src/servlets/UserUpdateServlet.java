@@ -3,8 +3,8 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -16,9 +16,9 @@ import utility.AppDBPage;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
-public class UserEditServlet extends HttpServlet {
+public class UserUpdateServlet extends HttpServlet {
 
-	public void init() {
+	public void init() throws ServletException {
 		
 	}
 
@@ -27,10 +27,12 @@ public class UserEditServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+
 		String uid = request.getParameter("uid");
-		
-		// no sidebar		
+		String uname = request.getParameter("uname");
+		String ubirth = request.getParameter("ubirth");
+		String ugender = request.getParameter("ugender");
+
 		out.println("<html>");
 		out.println(AppDBPage.HEAD);
 		out.println(AppDBPage.BODY.openingTag);
@@ -40,43 +42,31 @@ public class UserEditServlet extends HttpServlet {
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
 			
-			out.println("<h2>アカウント情報編集</h2>");
-			out.println("<form action='user_update' method='POST'>");
-			out.println("<span>アカウントID</span>");
-			out.println("<span>" + uid + "</span>");
-			out.println("<input type='hidden' name='uid' + value='" + uid + "'>");
-			
-			stmt = conn.prepareStatement("SELECT * FROM users WHERE uid = ?");
-			stmt.setInt(1, Integer.parseInt(uid));
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				String name = rs.getString("uname");
-				String birth = rs.getString("ubirth");
-				Boolean gender = rs.getBoolean("ugender");
-				
-				out.println("<span>アプリ名</span>");
-				out.println("<input type='text' name='uname' required value='" + name + "'>");
-				out.println("<span>誕生日</span>");
-				out.println("<input type='date' name='ubirth' required value='" + birth + "'>");
-				out.println("<span>性別</span>");
-				out.println("<select name='ugender'>");
-				out.println("<option value='0'" + (gender ? "" : " selected") + ">男性</option>");
-				out.println("<option value='1'" + (gender ? " selected" : "") + ">女性</option>");
-				out.println("</select>");
-			}
-			rs.close();
+			stmt = conn.prepareStatement("UPDATE users SET "
+					+ "uname = ?, ubirth = ?, ugender = CAST(? AS bit(1)) "
+					+ "WHERE uid = ?");
+			stmt.setInt(4, Integer.parseInt(uid));
+			stmt.setString(1, uname);
+			stmt.setDate(2, Date.valueOf(ubirth));;
+			stmt.setString(3, ugender);
+			stmt.executeUpdate();
 			stmt.close();
-			
-			out.println("<input type='submit' value='更新'>");
-			out.println("</form>");
-
-		} catch (Exception e) {
+						
+			out.println("アカウント情報を更新しました。<br>");
+			out.println("アカウントID: " + uid + "<br>");
+		} catch (IllegalArgumentException e) {
+			out.println("パラメーターの形式が正しくありません。");
+			e.printStackTrace();
+		} catch (SQLException e) {
 			out.println("エラーが発生しました。");
 			out.println("<br>");
 			out.println(e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {
+				if (stmt != null) {
+					stmt.close();
+				}
 				if (conn != null) {
 					conn.close();
 				}

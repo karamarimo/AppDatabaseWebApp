@@ -23,6 +23,13 @@ form span, form input {
 	display: block;
 }
 
+form *[required] {
+	border-color: #E66;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: inset;
+}
+
 form span {
 	font-weight: bold;
 }

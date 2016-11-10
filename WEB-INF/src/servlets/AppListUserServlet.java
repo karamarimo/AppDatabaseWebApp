@@ -44,7 +44,6 @@ public class AppListUserServlet extends HttpServlet {
 		out.println("<h2>アプリ一覧</h2>");
 		out.println("<form class='search-box' action='app_list_user' method='GET'>");
 		out.println("<input type='search' name='query' placeholder='search for app...'>");
-		out.println("<input type='submit' value='GO'>");
 		out.println("</form>");
 
 		out.println("<table class='db-table table-popup'>");

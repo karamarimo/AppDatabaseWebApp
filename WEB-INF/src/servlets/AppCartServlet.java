@@ -103,7 +103,7 @@ public class AppCartServlet extends HttpServlet {
 		// purchase form
 		out.println("<form action='app_purchase' method='POST'>");
 		out.println("<div>購入者のアカウントID"
-				+ "<input type='number' name='uid' min='0'></div>");
+				+ "<input type='number' name='uid' min='0' required></div>");
 		for (String aid: apps) {
 			out.println("<input type='hidden' name='aid' value='" + aid + "'>");			
 		}
