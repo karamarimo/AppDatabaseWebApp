@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,9 +29,19 @@ public class AppCartServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		String apps[] = request.getParameterValues("aid");
-				
-		if (apps == null) {
+		String[] cart_aids = {};
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("apps-in-cart")) {
+				String aids = cookie.getValue();
+				if (aids != null && aids.length() >= 3) {
+					aids = aids.substring(1, aids.length() - 1);
+					cart_aids = aids.split("%2C");
+				}
+			}
+		}
+		
+		if (cart_aids == null || cart_aids.length == 0) {
 			out.println("<html>"
 					+ AppDBPage.HEAD
 					+ AppDBPage.BODY.openingTag
@@ -60,7 +71,7 @@ public class AppCartServlet extends HttpServlet {
 			stmt = conn.prepareStatement("SELECT aid,aname,aprice FROM apps WHERE aid = ?");
 			ResultSet rs = null;
 			
-			for (String aid : apps) {
+			for (String aid : cart_aids) {
 				stmt.setInt(1, Integer.parseInt(aid));
 				rs = stmt.executeQuery();
 				while (rs.next()) {
@@ -104,7 +115,7 @@ public class AppCartServlet extends HttpServlet {
 		out.println("<form action='app_purchase' method='POST'>");
 		out.println("<div>購入者のアカウントID"
 				+ "<input type='number' name='uid' min='0' required></div>");
-		for (String aid: apps) {
+		for (String aid: cart_aids) {
 			out.println("<input type='hidden' name='aid' value='" + aid + "'>");			
 		}
 		out.println("<input type='submit' value='購入'>");

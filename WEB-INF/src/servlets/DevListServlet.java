@@ -16,10 +16,10 @@ import utility.AppDBPage;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
-public class ReviewListServlet extends HttpServlet {
+public class DevListServlet extends HttpServlet {
 
 	public void init() throws ServletException {
-
+		
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -27,8 +27,8 @@ public class ReviewListServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-
-		Integer aid = Integer.parseInt(request.getParameter("aid"));
+		
+		String query = request.getParameter("query");
 		
 		out.println("<html>");
 		out.println(AppDBPage.HEAD.openingTag);
@@ -36,46 +36,46 @@ public class ReviewListServlet extends HttpServlet {
 		out.println(AppDBPage.HEAD.closingTag);
 		out.println(AppDBPage.BODY_WITH_POPUP.openingTag);
 
-		out.println("<h3>レビュー一覧</h3>");
-		out.println("アプリID: " + aid);
-		
-		out.println("<table class='db-table table-popup'>");
-		out.println("<thead><tr><th>レビューID</th><th>投稿者名</th><th>タイトル</th><th>レーティング</th></tr></thead>");
-		out.println("<tbody>");
+		out.println("<h2>開発者一覧</h2>");
+		out.println("<form class='search-box' action='dev_list' method='GET'>");
+		out.println("<input type='search' name='query' placeholder='search for dev name...'>");
+		out.println("</form>");
 
+		out.println("<table class='db-table table-popup'>");
+		out.println("<thead><tr><th>開発者ID</th><th>開発者名</th></tr></thead>");
+		out.println("<tbody>");
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
-			
-			stmt = conn.prepareStatement(
-					"SELECT rid,uname,rtitle,rrate "
-					+ "FROM reviews NATURAL JOIN review_app NATURAL JOIN review_user NATURAL JOIN users "
-					+ "WHERE aid = ?");
-			stmt.setInt(1, aid);
+			if (query == null || query.isEmpty()) {
+				stmt = conn.prepareStatement("SELECT * FROM devs ORDER BY did");
+			} else {
+				stmt = conn.prepareStatement(
+						"SELECT * FROM devs "
+						+ "WHERE UPPER(dname) LIKE UPPER(?) ORDER BY did");
+				stmt.setString(1, "%" + query + "%");
+			}
+
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				Integer rid = rs.getInt("rid");
-				String uname = rs.getString("uname");
-				String rtitle = rs.getString("rtitle");
-				Integer rate = rs.getInt("rrate");
+				int did = rs.getInt("did");
+				String name = rs.getString("dname");
 
-				out.println("<tr data-href='/review_edit?rid="+ rid + "'>");
-				out.println("<td align='right'>" + rid + "</td>");
-				out.println("<td align='left'>" + uname + "</td>");
-				out.println("<td align='left'>" + rtitle + "</td>");
-				out.println("<td align='right'>" + rate + "</td>");
+				out.println("<tr data-href='/dev_edit?did="+ did + "'>");
+				out.println("<td align='right'>" + did + "</td>");
+				out.println("<td align='left'>" + name + "</td>");
 				out.println("</tr>");
 			}
 			rs.close();
 			stmt.close();
 		} catch (Exception e) {
+			out.println("エラーが発生しました。");
+			out.println("<br>");
+			out.println(e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {
-				if (stmt != null) {
-					stmt.close();
-				}
 				if (conn != null) {
 					conn.close();
 				}
@@ -83,9 +83,8 @@ public class ReviewListServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
 		out.println("</tbody>");
-		out.println("</table>");
+		out.println("</table");
 		out.println(AppDBPage.BODY_WITH_POPUP.closingTag);
 		out.println("</html>");
 	}

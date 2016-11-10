@@ -3,7 +3,9 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -15,10 +17,9 @@ import utility.AppDBPage;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
-public class ReviewUpdateServlet extends HttpServlet {
+public class UserAddServlet extends HttpServlet {
 
 	public void init() throws ServletException {
-		
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -27,10 +28,9 @@ public class ReviewUpdateServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String updateRID = request.getParameter("rid");
-		String updateTitle = request.getParameter("rtitle");
-		String updateRate = request.getParameter("rrate");
-		String updateContent = request.getParameter("rcontent");
+		String uname = request.getParameter("uname");
+		String ubirth = request.getParameter("ubirth");
+		String ugender = request.getParameter("ugender");
 
 		out.println("<html>");
 		out.println(AppDBPage.HEAD);
@@ -40,23 +40,33 @@ public class ReviewUpdateServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
+			stmt = conn.prepareStatement("SELECT MAX(uid) AS max_uid FROM users");
 			
-			stmt = conn.prepareStatement("UPDATE reviews SET "
-					+ "rtitle = ?, rrate = ?, rcontent = ? "
-					+ "WHERE rid = ?");
-			stmt.setInt(4, Integer.parseInt(updateRID));
-			stmt.setString(1, updateTitle);
-			stmt.setInt(2, Integer.parseInt(updateRate));
-			stmt.setString(3, updateContent);
+			int max_uid = 0;
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				max_uid = rs.getInt("max_uid");
+			}
+			stmt.close();
+			rs.close();
+			
+			int uid = max_uid + 1;
+			stmt = conn.prepareStatement(
+					"INSERT INTO users (uid,uname,ubirth,ugender) "
+					+ "VALUES (?, ?, ?, CAST(? AS bit(1)))");
+			stmt.setInt(1, uid);
+			stmt.setString(2, uname);
+			stmt.setDate(3, Date.valueOf(ubirth));;
+			stmt.setString(4, ugender);
 			stmt.executeUpdate();
 			stmt.close();
 			
-			out.println("レビューを更新しました。<br><br>");
-			out.println("レビューID: " + updateRID + "<br>");
-		} catch (IllegalArgumentException e) {
-			out.println("パラメーターの形式が正しくありません。");
-			e.printStackTrace();
-		} catch (SQLException e) {
+			out.println("以下のアカウントを追加しました。<br>");
+			out.println("アカウントID: " + uid + "<br>");
+			out.println("アカウント名: " + uname + "<br>");
+			
+//			response.sendRedirect("/app_list_dev");
+		} catch (Exception e) {
 			out.println("エラーが発生しました。");
 			out.println("<br>");
 			out.println(e.getMessage());

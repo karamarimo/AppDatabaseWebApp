@@ -5,204 +5,294 @@
   "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
 
-  <servlet>
-    <servlet-name>AppListDev</servlet-name>
-    <servlet-class>servlets.AppListDevServlet</servlet-class>
-  </servlet>
-  
-  <servlet>
-    <servlet-name>AppListUser</servlet-name>
-    <servlet-class>servlets.AppListUserServlet</servlet-class>
-  </servlet>
-  
-  <servlet>
-    <servlet-name>AppDetail</servlet-name>
-    <servlet-class>servlets.AppDetailServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>AppListDev</servlet-name>
+		<servlet-class>servlets.AppListDevServlet</servlet-class>
+	</servlet>
 
-  <servlet>
-    <servlet-name>AppNew</servlet-name>
-    <servlet-class>servlets.AppNewServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>AppListUser</servlet-name>
+		<servlet-class>servlets.AppListUserServlet</servlet-class>
+	</servlet>
 
-  <servlet>
-    <servlet-name>AppAdd</servlet-name>
-    <servlet-class>servlets.AppAddServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>AppDetail</servlet-name>
+		<servlet-class>servlets.AppDetailServlet</servlet-class>
+	</servlet>
 
-  <servlet>
-    <servlet-name>AppEdit</servlet-name>
-    <servlet-class>servlets.AppEditServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>AppNew</servlet-name>
+		<servlet-class>servlets.AppNewServlet</servlet-class>
+	</servlet>
 
-  <servlet>
-    <servlet-name>AppUpdate</servlet-name>
-    <servlet-class>servlets.AppUpdateServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>AppAdd</servlet-name>
+		<servlet-class>servlets.AppAddServlet</servlet-class>
+	</servlet>
 
-  <servlet>
-    <servlet-name>AppDelete</servlet-name>
-    <servlet-class>servlets.AppDeleteServlet</servlet-class>
-  </servlet>
-  
-  <servlet>
-    <servlet-name>AppCart</servlet-name>
-    <servlet-class>servlets.AppCartServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>AppEdit</servlet-name>
+		<servlet-class>servlets.AppEditServlet</servlet-class>
+	</servlet>
 
-  <servlet>
-    <servlet-name>AppPurchase</servlet-name>
-    <servlet-class>servlets.AppPurchaseServlet</servlet-class>
-  </servlet>
- 
- <servlet>
-    <servlet-name>ReviewList</servlet-name>
-    <servlet-class>servlets.ReviewListServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>AppUpdate</servlet-name>
+		<servlet-class>servlets.AppUpdateServlet</servlet-class>
+	</servlet>
 
- <servlet>
-    <servlet-name>ReviewEdit</servlet-name>
-    <servlet-class>servlets.ReviewEditServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>AppDelete</servlet-name>
+		<servlet-class>servlets.AppDeleteServlet</servlet-class>
+	</servlet>
 
- <servlet>
-    <servlet-name>ReviewUpdate</servlet-name>
-    <servlet-class>servlets.ReviewUpdateServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>AppCart</servlet-name>
+		<servlet-class>servlets.AppCartServlet</servlet-class>
+	</servlet>
 
- <servlet>
-    <servlet-name>ReviewDelete</servlet-name>
-    <servlet-class>servlets.ReviewDeleteServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>AppPurchase</servlet-name>
+		<servlet-class>servlets.AppPurchaseServlet</servlet-class>
+	</servlet>
 
- <servlet>
-    <servlet-name>ReviewNew</servlet-name>
-    <servlet-class>servlets.ReviewNewServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>ReviewList</servlet-name>
+		<servlet-class>servlets.ReviewListServlet</servlet-class>
+	</servlet>
 
- <servlet>
-    <servlet-name>ReviewAdd</servlet-name>
-    <servlet-class>servlets.ReviewAddServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>ReviewEdit</servlet-name>
+		<servlet-class>servlets.ReviewEditServlet</servlet-class>
+	</servlet>
 
-<servlet>
-    <servlet-name>UserList</servlet-name>
-    <servlet-class>servlets.UserListServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>ReviewUpdate</servlet-name>
+		<servlet-class>servlets.ReviewUpdateServlet</servlet-class>
+	</servlet>
 
-<servlet>
-    <servlet-name>UserDetail</servlet-name>
-    <servlet-class>servlets.UserDetailServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>ReviewDelete</servlet-name>
+		<servlet-class>servlets.ReviewDeleteServlet</servlet-class>
+	</servlet>
 
-<servlet>
-    <servlet-name>UserEdit</servlet-name>
-    <servlet-class>servlets.UserEditServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>ReviewNew</servlet-name>
+		<servlet-class>servlets.ReviewNewServlet</servlet-class>
+	</servlet>
 
-<servlet>
-    <servlet-name>UserUpdate</servlet-name>
-    <servlet-class>servlets.UserUpdateServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<servlet-name>ReviewAdd</servlet-name>
+		<servlet-class>servlets.ReviewAddServlet</servlet-class>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>AppListDev</servlet-name>
-    <url-pattern>/app_list_dev</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>AppListUser</servlet-name>
-    <url-pattern>/app_list_user</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>AppDetail</servlet-name>
-    <url-pattern>/app_detail</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>UserList</servlet-name>
+		<servlet-class>servlets.UserListServlet</servlet-class>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>AppNew</servlet-name>
-    <url-pattern>/app_new</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>UserDetail</servlet-name>
+		<servlet-class>servlets.UserDetailServlet</servlet-class>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>AppAdd</servlet-name>
-    <url-pattern>/app_add</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>UserEdit</servlet-name>
+		<servlet-class>servlets.UserEditServlet</servlet-class>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>AppEdit</servlet-name>
-    <url-pattern>/app_edit</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>UserUpdate</servlet-name>
+		<servlet-class>servlets.UserUpdateServlet</servlet-class>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>AppUpdate</servlet-name>
-    <url-pattern>/app_update</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>UserNew</servlet-name>
+		<servlet-class>servlets.UserNewServlet</servlet-class>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>AppDelete</servlet-name>
-    <url-pattern>/app_delete</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>AppCart</servlet-name>
-    <url-pattern>/app_cart</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>AppPurchase</servlet-name>
-    <url-pattern>/app_purchase</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>ReviewList</servlet-name>
-    <url-pattern>/review_list</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>UserAdd</servlet-name>
+		<servlet-class>servlets.UserAddServlet</servlet-class>
+	</servlet>
 
- <servlet-mapping>
-    <servlet-name>ReviewEdit</servlet-name>
-    <url-pattern>/review_edit</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>UserDelete</servlet-name>
+        <servlet-class>servlets.UserDeleteServlet</servlet-class>
+    </servlet>
 
- <servlet-mapping>
-    <servlet-name>ReviewUpdate</servlet-name>
-    <url-pattern>/review_update</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>DevList</servlet-name>
+        <servlet-class>servlets.DevListServlet</servlet-class>
+    </servlet>
 
- <servlet-mapping>
-    <servlet-name>ReviewDelete</servlet-name>
-    <url-pattern>/review_delete</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>DevEdit</servlet-name>
+        <servlet-class>servlets.DevEditServlet</servlet-class>
+    </servlet>
 
- <servlet-mapping>
-    <servlet-name>ReviewNew</servlet-name>
-    <url-pattern>/review_new</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>DevUpdate</servlet-name>
+        <servlet-class>servlets.DevUpdateServlet</servlet-class>
+    </servlet>
 
- <servlet-mapping>
-    <servlet-name>ReviewAdd</servlet-name>
-    <url-pattern>/review_add</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>DevNew</servlet-name>
+        <servlet-class>servlets.DevNewServlet</servlet-class>
+    </servlet>
 
- <servlet-mapping>
-    <servlet-name>UserList</servlet-name>
-    <url-pattern>/user_list</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>DevAdd</servlet-name>
+        <servlet-class>servlets.DevAddServlet</servlet-class>
+    </servlet>
 
- <servlet-mapping>
-    <servlet-name>UserDetail</servlet-name>
-    <url-pattern>/user_detail</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>DevDelete</servlet-name>
+        <servlet-class>servlets.DevDeleteServlet</servlet-class>
+    </servlet>
 
- <servlet-mapping>
-    <servlet-name>UserEdit</servlet-name>
-    <url-pattern>/user_edit</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AppListDev</servlet-name>
+		<url-pattern>/app_list_dev</url-pattern>
+	</servlet-mapping>
 
- <servlet-mapping>
-    <servlet-name>UserUpdate</servlet-name>
-    <url-pattern>/user_update</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AppListUser</servlet-name>
+		<url-pattern>/app_list_user</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AppDetail</servlet-name>
+		<url-pattern>/app_detail</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AppNew</servlet-name>
+		<url-pattern>/app_new</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AppAdd</servlet-name>
+		<url-pattern>/app_add</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AppEdit</servlet-name>
+		<url-pattern>/app_edit</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AppUpdate</servlet-name>
+		<url-pattern>/app_update</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AppDelete</servlet-name>
+		<url-pattern>/app_delete</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AppCart</servlet-name>
+		<url-pattern>/app_cart</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AppPurchase</servlet-name>
+		<url-pattern>/app_purchase</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ReviewList</servlet-name>
+		<url-pattern>/review_list</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ReviewEdit</servlet-name>
+		<url-pattern>/review_edit</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ReviewUpdate</servlet-name>
+		<url-pattern>/review_update</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ReviewDelete</servlet-name>
+		<url-pattern>/review_delete</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ReviewNew</servlet-name>
+		<url-pattern>/review_new</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ReviewAdd</servlet-name>
+		<url-pattern>/review_add</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>UserList</servlet-name>
+		<url-pattern>/user_list</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>UserDetail</servlet-name>
+		<url-pattern>/user_detail</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>UserEdit</servlet-name>
+		<url-pattern>/user_edit</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>UserUpdate</servlet-name>
+		<url-pattern>/user_update</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>UserNew</servlet-name>
+		<url-pattern>/user_new</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>UserAdd</servlet-name>
+		<url-pattern>/user_add</url-pattern>
+	</servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UserDelete</servlet-name>
+        <url-pattern>/user_delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DevList</servlet-name>
+        <url-pattern>/dev_list</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DevEdit</servlet-name>
+        <url-pattern>/dev_edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DevUpdate</servlet-name>
+        <url-pattern>/dev_update</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DevNew</servlet-name>
+        <url-pattern>/dev_new</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DevAdd</servlet-name>
+        <url-pattern>/dev_add</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DevDelete</servlet-name>
+        <url-pattern>/dev_delete</url-pattern>
+    </servlet-mapping>
 
 </web-app>

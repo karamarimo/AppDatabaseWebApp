@@ -15,7 +15,7 @@ import utility.AppDBPage;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
-public class ReviewUpdateServlet extends HttpServlet {
+public class DevUpdateServlet extends HttpServlet {
 
 	public void init() throws ServletException {
 		
@@ -27,10 +27,8 @@ public class ReviewUpdateServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String updateRID = request.getParameter("rid");
-		String updateTitle = request.getParameter("rtitle");
-		String updateRate = request.getParameter("rrate");
-		String updateContent = request.getParameter("rcontent");
+		String did = request.getParameter("did");
+		String dname = request.getParameter("dname");
 
 		out.println("<html>");
 		out.println(AppDBPage.HEAD);
@@ -41,18 +39,16 @@ public class ReviewUpdateServlet extends HttpServlet {
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
 			
-			stmt = conn.prepareStatement("UPDATE reviews SET "
-					+ "rtitle = ?, rrate = ?, rcontent = ? "
-					+ "WHERE rid = ?");
-			stmt.setInt(4, Integer.parseInt(updateRID));
-			stmt.setString(1, updateTitle);
-			stmt.setInt(2, Integer.parseInt(updateRate));
-			stmt.setString(3, updateContent);
+			stmt = conn.prepareStatement("UPDATE devs SET "
+					+ "dname = ? "
+					+ "WHERE did = ?");
+			stmt.setInt(2, Integer.parseInt(did));
+			stmt.setString(1, dname);
 			stmt.executeUpdate();
 			stmt.close();
-			
-			out.println("レビューを更新しました。<br><br>");
-			out.println("レビューID: " + updateRID + "<br>");
+						
+			out.println("開発者情報を更新しました。<br>");
+			out.println("開発者ID: " + did + "<br>");
 		} catch (IllegalArgumentException e) {
 			out.println("パラメーターの形式が正しくありません。");
 			e.printStackTrace();

@@ -39,7 +39,7 @@ public class AppListUserServlet extends HttpServlet {
 		out.println(AppDBPage.BODY_WITH_POPUP.openingTag);
 		
 		// cart button
-		out.println("<button class='button-cart'>カート:<span class='cart-count'></span></button>");
+		out.println("<div class='cart'><a href='/app_cart'>カート:<span class='cart-count'></span></a></div>");
 		
 		out.println("<h2>アプリ一覧</h2>");
 		out.println("<form class='search-box' action='app_list_user' method='GET'>");

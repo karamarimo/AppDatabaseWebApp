@@ -39,7 +39,7 @@ public class AppDeleteServlet extends HttpServlet {
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
 			
-			stmt = conn.prepareStatement("SELECT * FROM apps WHERE aid = ?");
+			stmt = conn.prepareStatement("SELECT aname FROM apps WHERE aid = ?");
 			stmt.setInt(1, Integer.parseInt(deleteAID));
 			ResultSet rs = stmt.executeQuery();
 			String name = null;
@@ -54,9 +54,9 @@ public class AppDeleteServlet extends HttpServlet {
 			stmt.executeUpdate();
 			stmt.close();
 			
-			out.println("以下のアプリを削除しました。<br/><br/>");
-			out.println("アプリID: " + deleteAID + "<br/>");
-			out.println("アプリ名: " + name + "<br/>");
+			out.println("以下のアプリを削除しました。<br><br>");
+			out.println("アプリID: " + deleteAID + "<br>");
+			out.println("アプリ名: " + name + "<br>");
 
 		} catch (Exception e) {
 			out.println("エラーが発生しました。");

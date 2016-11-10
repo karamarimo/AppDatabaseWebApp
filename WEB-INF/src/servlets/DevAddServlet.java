@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -15,10 +16,9 @@ import utility.AppDBPage;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
-public class ReviewUpdateServlet extends HttpServlet {
+public class DevAddServlet extends HttpServlet {
 
 	public void init() throws ServletException {
-		
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -27,10 +27,7 @@ public class ReviewUpdateServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String updateRID = request.getParameter("rid");
-		String updateTitle = request.getParameter("rtitle");
-		String updateRate = request.getParameter("rrate");
-		String updateContent = request.getParameter("rcontent");
+		String dname = request.getParameter("dname");
 
 		out.println("<html>");
 		out.println(AppDBPage.HEAD);
@@ -40,23 +37,31 @@ public class ReviewUpdateServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
+			stmt = conn.prepareStatement("SELECT MAX(did) AS max_did FROM devs");
 			
-			stmt = conn.prepareStatement("UPDATE reviews SET "
-					+ "rtitle = ?, rrate = ?, rcontent = ? "
-					+ "WHERE rid = ?");
-			stmt.setInt(4, Integer.parseInt(updateRID));
-			stmt.setString(1, updateTitle);
-			stmt.setInt(2, Integer.parseInt(updateRate));
-			stmt.setString(3, updateContent);
+			int max_did = 0;
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				max_did = rs.getInt("max_did");
+			}
+			stmt.close();
+			rs.close();
+			
+			int did = max_did + 1;
+			stmt = conn.prepareStatement(
+					"INSERT INTO devs (did,dname) "
+					+ "VALUES (?, ?)");
+			stmt.setInt(1, did);
+			stmt.setString(2, dname);
 			stmt.executeUpdate();
 			stmt.close();
 			
-			out.println("レビューを更新しました。<br><br>");
-			out.println("レビューID: " + updateRID + "<br>");
-		} catch (IllegalArgumentException e) {
-			out.println("パラメーターの形式が正しくありません。");
-			e.printStackTrace();
-		} catch (SQLException e) {
+			out.println("以下の開発者アカウントを追加しました。<br>");
+			out.println("開発者ID: " + did + "<br>");
+			out.println("開発者名: " + dname + "<br>");
+			
+//			response.sendRedirect("/app_list_dev");
+		} catch (Exception e) {
 			out.println("エラーが発生しました。");
 			out.println("<br>");
 			out.println(e.getMessage());

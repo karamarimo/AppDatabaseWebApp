@@ -64,9 +64,15 @@ public class UserDetailServlet extends HttpServlet {
 			rs.close();
 			stmt.close();
 			
+			// edit button
 			out.println("<form action='user_edit' method='GET'>");
 			out.println("<input type='hidden' name='uid' value='" + uid + "'>");
 			out.println("<input type='submit' value='編集'>");
+			out.println("</form>");
+			// delete button
+			out.println("<form action='user_delete' method='POST'>");
+			out.println("<input type='hidden' name='uid' value='" + uid + "'>");
+			out.println("<input type='submit' value='削除'>");
 			out.println("</form>");
 			
 			// my apps

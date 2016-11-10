@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -15,9 +16,9 @@ import utility.AppDBPage;
 import utility.AppDatabaseConnection;
 
 @SuppressWarnings("serial")
-public class ReviewUpdateServlet extends HttpServlet {
+public class DevEditServlet extends HttpServlet {
 
-	public void init() throws ServletException {
+	public void init() {
 		
 	}
 
@@ -26,46 +27,52 @@ public class ReviewUpdateServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-
-		String updateRID = request.getParameter("rid");
-		String updateTitle = request.getParameter("rtitle");
-		String updateRate = request.getParameter("rrate");
-		String updateContent = request.getParameter("rcontent");
-
+		
+		String did = request.getParameter("did");
+		
+		// no sidebar		
 		out.println("<html>");
 		out.println(AppDBPage.HEAD);
-		out.println(AppDBPage.BODY.openingTag);
+		out.println("<body>");
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
 			
-			stmt = conn.prepareStatement("UPDATE reviews SET "
-					+ "rtitle = ?, rrate = ?, rcontent = ? "
-					+ "WHERE rid = ?");
-			stmt.setInt(4, Integer.parseInt(updateRID));
-			stmt.setString(1, updateTitle);
-			stmt.setInt(2, Integer.parseInt(updateRate));
-			stmt.setString(3, updateContent);
-			stmt.executeUpdate();
+			out.println("<h2>開発者情報編集</h2>");
+			out.println("<form action='dev_update' method='POST'>");
+			out.println("<span>開発者ID</span>");
+			out.println("<span>" + did + "</span>");
+			out.println("<input type='hidden' name='did' + value='" + did + "'>");
+			
+			stmt = conn.prepareStatement("SELECT * FROM devs WHERE did = ?");
+			stmt.setInt(1, Integer.parseInt(did));
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String name = rs.getString("dname");
+				
+				out.println("<span>開発者名</span>");
+				out.println("<input type='text' name='dname' required value='" + name + "'>");
+			}
+			rs.close();
 			stmt.close();
 			
-			out.println("レビューを更新しました。<br><br>");
-			out.println("レビューID: " + updateRID + "<br>");
-		} catch (IllegalArgumentException e) {
-			out.println("パラメーターの形式が正しくありません。");
-			e.printStackTrace();
-		} catch (SQLException e) {
+			out.println("<input type='submit' value='更新'>");
+			out.println("</form>");
+
+			// delete button
+			out.println("<form action='dev_delete' method='POST'>");
+			out.println("<input type='hidden' name='did' value='" + did + "'>");
+			out.println("<input type='submit' value='削除'>");
+			out.println("</form>");
+		} catch (Exception e) {
 			out.println("エラーが発生しました。");
 			out.println("<br>");
 			out.println(e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {
-				if (stmt != null) {
-					stmt.close();
-				}
 				if (conn != null) {
 					conn.close();
 				}
@@ -73,8 +80,8 @@ public class ReviewUpdateServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
-		out.println(AppDBPage.BODY.closingTag);
+		
+		out.println("</body>");
 		out.println("</html>");
 	}
 

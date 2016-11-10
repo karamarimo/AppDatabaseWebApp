@@ -54,12 +54,12 @@ public class UserEditServlet extends HttpServlet {
 				String birth = rs.getString("ubirth");
 				Boolean gender = rs.getBoolean("ugender");
 				
-				out.println("<span>アプリ名</span>");
+				out.println("<span>アカウント名</span>");
 				out.println("<input type='text' name='uname' required value='" + name + "'>");
 				out.println("<span>誕生日</span>");
 				out.println("<input type='date' name='ubirth' required value='" + birth + "'>");
 				out.println("<span>性別</span>");
-				out.println("<select name='ugender'>");
+				out.println("<select name='ugender' required>");
 				out.println("<option value='0'" + (gender ? "" : " selected") + ">男性</option>");
 				out.println("<option value='1'" + (gender ? " selected" : "") + ">女性</option>");
 				out.println("</select>");

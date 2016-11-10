@@ -27,11 +27,14 @@ public class AppDBPage {
 				+ "<ul>"
 				+ "<li><a href='/app_list_dev'>アプリ一覧</a></li>"
 				+ "<li><a href='/app_new'>アプリ追加</a></li>"
+				+ "<li><a href='/dev_list'>開発者一覧</a></li>"
+				+ "<li><a href='/dev_new'>開発者追加</a></li>"
 				+ "</ul>"
 				+ "<h3>一般ユーザ用</h3>"
 				+ "<ul>"
 				+ "<li><a href='/app_list_user'>アプリ一覧</a></li>"
 				+ "<li><a href='/user_list'>アカウント一覧</a></li>"
+				+ "<li><a href='/user_new'>アカウント追加</a></li>"
 				+ "</ul>"
 				+ "</div>", 
 				"</nav>");

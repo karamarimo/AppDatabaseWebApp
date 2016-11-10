@@ -43,8 +43,8 @@ public class ReviewDeleteServlet extends HttpServlet {
 			stmt.executeUpdate();
 			stmt.close();
 			
-			out.println("以下のレビューを削除しました。<br/><br/>");
-			out.println("レビューID: " + deleteRID + "<br/>");
+			out.println("以下のレビューを削除しました。<br><br>");
+			out.println("レビューID: " + deleteRID + "<br>");
 
 		} catch (Exception e) {
 			out.println("エラーが発生しました。");
