@@ -32,7 +32,7 @@ function updateCartButton(count) {
 $(function() {
 	$('.form-add-to-cart').submit(function(event) {
 		var param = ($(this).serializeArray())[0];
-		if (param != null && param.name == 'aid') {
+		if (param != null && param.name === 'aid') {
 			addCart(param.value);
 		}
 		return false;
