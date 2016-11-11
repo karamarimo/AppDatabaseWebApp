@@ -29,16 +29,16 @@ public class UserNewServlet extends HttpServlet {
 
 		out.println("<h3>アカウント追加</h3>");
 		out.println("<form action='user_add' method='POST'>");
-		out.println("<span>アカウント名</span>");
+		out.println("<span class='label'>アカウント名</span>");
 		out.println("<input type='text' name='uname' required>");
-		out.println("<span>誕生日</span>");
+		out.println("<span class='label'>誕生日</span>");
 		out.println("<input type='date' name='ubirth' required>");
-		out.println("<span>性別</span>");
+		out.println("<span class='label'>性別</span>");
 		out.println("<select name='ugender' required>");
 		out.println("<option value='0' selected>男性</option>");
 		out.println("<option value='1'>女性</option>");
 		out.println("</select>");
-		out.println("<input type='submit' value='追加'>");
+		out.println("<input class='blue-button' type='submit' value='追加'>");
 		out.println("</form>");
 
 		out.println(AppDBPage.BODY.closingTag);

@@ -67,18 +67,18 @@ public class UserDetailServlet extends HttpServlet {
 			// edit button
 			out.println("<form action='user_edit' method='GET'>");
 			out.println("<input type='hidden' name='uid' value='" + uid + "'>");
-			out.println("<input type='submit' value='編集'>");
+			out.println("<input class='blue-button' type='submit' value='編集'>");
 			out.println("</form>");
 			// delete button
 			out.println("<form action='user_delete' method='POST'>");
 			out.println("<input type='hidden' name='uid' value='" + uid + "'>");
-			out.println("<input type='submit' value='削除'>");
+			out.println("<input class='red-button' type='submit' value='削除'>");
 			out.println("</form>");
 			
 			// my apps
 			out.println("<h2>所持アプリ</h2>");
 			out.println("<table class='db-table table-popup'>");
-			out.println("<thead><tr><th>アプリID</th><th>アプリ名</th></tr></thead>");
+			out.println("<thead><tr><th align='right'>アプリID</th><th align='left'>アプリ名</th></tr></thead>");
 			out.println("<tbody>");
 			stmt = conn.prepareStatement(
 					"SELECT aid, aname "
@@ -100,7 +100,7 @@ public class UserDetailServlet extends HttpServlet {
 			// my reviews
 			out.println("<h2>投稿したレビュー</h2>");
 			out.println("<table class='db-table table-popup'>");
-			out.println("<thead><tr><th>レビューID</th><th>アプリ名</th><th>タイトル</th></tr></thead>");
+			out.println("<thead><tr><th align='right'>レビューID</th><th align='left'>アプリ名</th><th align='left'>タイトル</th></tr></thead>");
 			out.println("<tbody>");
 			stmt = conn.prepareStatement(
 					"SELECT rid, aname, rtitle "

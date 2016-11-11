@@ -42,7 +42,7 @@ public class DevListServlet extends HttpServlet {
 		out.println("</form>");
 
 		out.println("<table class='db-table table-popup'>");
-		out.println("<thead><tr><th>開発者ID</th><th>開発者名</th></tr></thead>");
+		out.println("<thead><tr><th align='right'>開発者ID</th><th align='left'>開発者名</th></tr></thead>");
 		out.println("<tbody>");
 		Connection conn = null;
 		PreparedStatement stmt = null;

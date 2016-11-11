@@ -42,7 +42,10 @@ public class UserListServlet extends HttpServlet {
 		out.println("</form>");
 
 		out.println("<table class='db-table table-link'>");
-		out.println("<thead><tr><th>アカウントID</th><th>名前</th><th>誕生日</th><th>性別</th></tr></thead>");
+		out.println("<thead><tr><th align='right'>アカウントID</th>"
+				+ "<th align='left'>名前</th>"
+				+ "<th align='left'>誕生日</th>"
+				+ "<th align='left'>性別</th></tr></thead>");
 		out.println("<tbody>");
 		Connection conn = null;
 		PreparedStatement stmt = null;

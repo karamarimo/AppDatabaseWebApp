@@ -40,7 +40,10 @@ public class ReviewListServlet extends HttpServlet {
 		out.println("アプリID: " + aid);
 		
 		out.println("<table class='db-table table-popup'>");
-		out.println("<thead><tr><th>レビューID</th><th>投稿者名</th><th>タイトル</th><th>レーティング</th></tr></thead>");
+		out.println("<thead><tr><th align='right'>レビューID</th>"
+				+ "<th align='left'>投稿者名</th>"
+				+ "<th align='left'>タイトル</th>"
+				+ "<th align='right'>レーティング</th></tr></thead>");
 		out.println("<tbody>");
 
 		Connection conn = null;

@@ -31,18 +31,18 @@ public class ReviewNewServlet extends HttpServlet {
 
 		out.println("<h3>新規レビュー</h3>");
 		out.println("<form action='review_add' method='POST'>");
-		out.println("<span>アプリID</span>");
-		out.println("<span>" + aid + "</span>");
+		out.println("<span class='label'>アプリID</span>");
+		out.println("<span class='value'>" + aid + "</span>");
 		out.println("<input type='hidden' name='aid' value='" + aid + "'>");
-		out.println("<span>ユーザID</span>");
+		out.println("<span class='label'>ユーザID</span>");
 		out.println("<input type='number' min='0' name='uid' required>");
-		out.println("<span>タイトル</span>");
+		out.println("<span class='label'>タイトル</span>");
 		out.println("<input type='text' name='rtitle' required>");
-		out.println("<span>レーティング</span>");
+		out.println("<span class='label'>レーティング</span>");
 		out.println("<input type='number' name='rrate' min='1' max='5' value='5' required>");
-		out.println("<span>内容</span>");
+		out.println("<span class='label'>内容</span>");
 		out.println("<textarea name='rcontent'></textarea>");
-		out.println("<input type='submit' value='投稿'>");
+		out.println("<input class='blue-button' type='submit' value='投稿'>");
 		out.println("</form>");
 
 		out.println(AppDBPage.BODY.closingTag);

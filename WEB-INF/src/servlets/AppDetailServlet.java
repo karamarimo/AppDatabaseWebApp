@@ -100,9 +100,9 @@ public class AppDetailServlet extends HttpServlet {
 				out.println("<form action='review_list' method='GET'>");
 				out.println("<input type='hidden' name='aid' value='" + aid + "'>");
 				if (rcount == 0) {
-					out.println("<input type='submit' value='レビューなし' disabled>");
+					out.println("<input class='blue-button' type='submit' value='レビューなし' disabled>");
 				} else {
-					out.println("<input type='submit' value='レビュー一覧("
+					out.println("<input class='blue-button' type='submit' value='レビュー一覧("
 							+ rcount + "件)'>");
 				}
 				out.println("</form>");
@@ -124,12 +124,12 @@ public class AppDetailServlet extends HttpServlet {
 
 		out.println("<form action='review_new' method='GET'>");
 		out.println("<input type='hidden' name='aid' value='" + aid + "'>");
-		out.println("<input type='submit' value='レビューを書く'>");
+		out.println("<input class='blue-button' type='submit' value='レビューを書く'>");
 		out.println("</form>");
 		
 		out.println("<form class='form-add-to-cart'>");
 		out.println("<input type='hidden' name='aid' value='" + aid + "'>");
-		out.println("<input type='submit' value='カートに入れる'>");
+		out.println("<input class='blue-button' type='submit' value='カートに入れる'>");
 		out.println("</form>");
 
 		out.println("</body>");

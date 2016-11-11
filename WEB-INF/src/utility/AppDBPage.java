@@ -9,6 +9,7 @@ public class AppDBPage {
 				"<head>" 
 				+ "<link rel='icon' href='/icon.png'>"
 				+ "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>"
+				+ "<link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>"
 				+ "<link rel='stylesheet' type='text/css' href='appdb.css'>"
 				+ "<script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.min.js'></script>", 
 				"</head>");

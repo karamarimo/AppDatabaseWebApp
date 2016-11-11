@@ -55,12 +55,15 @@ public class AppCartServlet extends HttpServlet {
 		out.println(AppDBPage.HEAD.openingTag);
 		out.println("<script type='text/javascript' src='js.cookie.js'></script>");
 		out.println("<script type='text/javascript' src='cart-clear-button.js'></script>");
+		out.println("<script type='text/javascript' src='cart-delete-button.js'></script>");
 		out.println(AppDBPage.HEAD.closingTag);
 		out.println(AppDBPage.BODY.openingTag);
 		
 		out.println("<h2>カート内のアプリ</h2>");
 		out.println("<table class='db-table'>");
-		out.println("<thead><tr><th>アプリID</th><th>名前</th><th>価格</th></tr></thead>");
+		out.println("<thead><tr><th align='right'>アプリID</th>"
+				+ "<th align='left'>名前</th>"
+				+ "<th align='right'>価格</th><th></th></tr></thead>");
 		out.println("<tbody>");
 		
 		Integer total = 0;
@@ -82,8 +85,9 @@ public class AppCartServlet extends HttpServlet {
 					out.println("<td align='right'>" + aid + "</td>");
 					out.println("<td align='left'>" + name + "</td>");
 					out.println("<td align='right'>" + price + "</td>");
+					out.println("<td><button class='button-delete-item' data-aid='"
+							+ aid + "'>&#10006;</button></td>");
 					out.println("</tr>");
-					
 					total += price;
 				}
 				rs.close();
@@ -118,7 +122,7 @@ public class AppCartServlet extends HttpServlet {
 		for (String aid: cart_aids) {
 			out.println("<input type='hidden' name='aid' value='" + aid + "'>");			
 		}
-		out.println("<input type='submit' value='購入'>");
+		out.println("<input class='blue-button' type='submit' value='購入'>");
 		out.println("</form>");
 		
 		// clear button

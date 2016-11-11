@@ -42,8 +42,8 @@ public class AppEditServlet extends HttpServlet {
 			
 			out.println("<h2>アプリ編集</h2>");
 			out.println("<form action='app_update' method='POST'>");
-			out.println("<span>アプリID</span>");
-			out.println("<span>" + aid + "</span>");
+			out.println("<span class='label'>アプリID</span>");
+			out.println("<span class='value'>" + aid + "</span>");
 			out.println("<input type='hidden' name='update_aid' + value='" + aid + "'>");
 			
 			stmt = conn.prepareStatement("SELECT * FROM app_dev WHERE aid = ?");
@@ -51,8 +51,8 @@ public class AppEditServlet extends HttpServlet {
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String did = rs.getString("did");
-				out.println("<span>開発者ID</span>");
-				out.println("<span>" + did + "</span>");
+				out.println("<span class='label'>開発者ID</span>");
+				out.println("<span class='value'>" + did + "</span>");
 			}
 			rs.close();
 			stmt.close();
@@ -67,21 +67,21 @@ public class AppEditServlet extends HttpServlet {
 				String release = rs.getString("arelease_date");
 				String desc = rs.getString("adescription");
 				
-				out.println("<span>アプリ名</span>");
+				out.println("<span class='label'>アプリ名</span>");
 				out.println("<input type='text' name='update_name' required value='" + name + "'>");
-				out.println("<span>バージョン</span>");
+				out.println("<span class='label'>バージョン</span>");
 				out.println("<input type='text' name='update_version' required value='" + version + "'>");
-				out.println("<span>価格</span>");
+				out.println("<span class='label'>価格</span>");
 				out.println("<input type='number' name='update_price' required min='0' value='" + price + "'>");
-				out.println("<span>リリース日</span>");
+				out.println("<span class='label'>リリース日</span>");
 				out.println("<input type='date' name='update_release' required value='" + release + "'>");
-				out.println("<span>説明</span>");
+				out.println("<span class='label'>説明</span>");
 				out.println("<textarea name='update_description'>" + desc + "</textarea>");
 			}
 			rs.close();
 			stmt.close();
 			
-			out.println("<input type='submit' value='更新'>");
+			out.println("<input class='blue-button' type='submit' value='更新'>");
 			out.println("</form>");
 
 		} catch (Exception e) {
@@ -101,7 +101,7 @@ public class AppEditServlet extends HttpServlet {
 
 		out.println("<form action='app_delete' method='POST'>");
 		out.println("<input type='hidden' name='delete_aid' value='" + aid + "'>");
-		out.println("<input class='delete_button' type='submit' value='削除'>");
+		out.println("<input class='red-button' type='submit' value='削除'>");
 		out.println("</form>");
 
 		out.println("</body>");

@@ -40,11 +40,11 @@ public class AppListDevServlet extends HttpServlet {
 
 		out.println("<h2>アプリ一覧</h2>");
 		out.println("<form class='search-box' action='app_list_dev' method='GET'>");
-		out.println("<input type='search' name='query' placeholder='search for app...'>");
+		out.println("<i class='material-icons'>search</i><input type='search' name='query' placeholder='search for app...'>");
 		out.println("</form>");
 
 		out.println("<table class='db-table table-popup'>");
-		out.println("<thead><tr><th>アプリID</th><th>名前</th><th>価格</th></tr></thead>");
+		out.println("<thead><tr><th align='right'>アプリID</th><th align='left'>名前</th><th align='right'>価格</th></tr></thead>");
 		out.println("<tbody>");
 		Connection conn = null;
 		PreparedStatement stmt = null;

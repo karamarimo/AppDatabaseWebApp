@@ -29,9 +29,9 @@ public class DevNewServlet extends HttpServlet {
 
 		out.println("<h3>開発者追加</h3>");
 		out.println("<form action='dev_add' method='POST'>");
-		out.println("<span>開発者名</span>");
+		out.println("<span class='label'>開発者名</span>");
 		out.println("<input type='text' name='dname' required>");
-		out.println("<input type='submit' value='追加'>");
+		out.println("<input class='blue-button' type='submit' value='追加'>");
 		out.println("</form>");
 
 		out.println(AppDBPage.BODY.closingTag);

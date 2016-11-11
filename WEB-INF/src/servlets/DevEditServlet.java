@@ -42,8 +42,8 @@ public class DevEditServlet extends HttpServlet {
 			
 			out.println("<h2>開発者情報編集</h2>");
 			out.println("<form action='dev_update' method='POST'>");
-			out.println("<span>開発者ID</span>");
-			out.println("<span>" + did + "</span>");
+			out.println("<span class='label'>開発者ID</span>");
+			out.println("<span class='value'>" + did + "</span>");
 			out.println("<input type='hidden' name='did' + value='" + did + "'>");
 			
 			stmt = conn.prepareStatement("SELECT * FROM devs WHERE did = ?");
@@ -52,19 +52,19 @@ public class DevEditServlet extends HttpServlet {
 			while (rs.next()) {
 				String name = rs.getString("dname");
 				
-				out.println("<span>開発者名</span>");
+				out.println("<span class='label'>開発者名</span>");
 				out.println("<input type='text' name='dname' required value='" + name + "'>");
 			}
 			rs.close();
 			stmt.close();
 			
-			out.println("<input type='submit' value='更新'>");
+			out.println("<input class='blue-button' type='submit' value='更新'>");
 			out.println("</form>");
 
 			// delete button
 			out.println("<form action='dev_delete' method='POST'>");
 			out.println("<input type='hidden' name='did' value='" + did + "'>");
-			out.println("<input type='submit' value='削除'>");
+			out.println("<input class='red-button' type='submit' value='削除'>");
 			out.println("</form>");
 		} catch (Exception e) {
 			out.println("エラーが発生しました。");

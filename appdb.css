@@ -1,34 +1,91 @@
 .db-table {
 	border-collapse: collapse;
+	box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
+}
+.db-table tr {
+	border-bottom: 1px solid #CCC;
 }
 
 .db-table td, .db-table th {
-	padding: 5px 20px;
-	border: 1px solid #CCC;
+	padding: 10px 35px;
+	font-weight: normal;
+}
+.db-table thead tr {
+	background-color: white;
+	color: #888;
+}
+.db-table tbody tr {
+	background-color: white;
 }
 
-.db-table th {
-	background-color: #DDE;
+.db-table tbody tr:hover {
+	background-color: #32e574;		/* accent color */
+	color: white;
 }
 
-.db-table tr:nth-child(even) {
-	background-color: #EEE;
+.blue-button, .red-button, .button-delete-item {
+	color: white;
+	border: none;
+	transition: background-color 0.2s;
 }
-
-.db-table tr:hover {
-	background-color: #EFF;
+.blue-button, .red-button {
+	font-size: 12px;
+	padding: 7px 16px;
+	box-shadow: 0 2px 3px 0px rgba(0,0,0,0.2);
+	margin : 20px 0;
+}
+.blue-button {
+	background-color: #195bcc;
+}
+.blue-button:active {
+	background-color: #4984e9;
+}
+.red-button {
+	background-color: #CC1919;
+}
+.red-button:active {
+	background-color: #E94949;
+}
+.button-delete-item {
+	padding: 0;
+	font-size: 13px;
+	line-height: 20px;
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	border-radius: 50%;
+	background-color: #cc1919;
 }
 
 form span, form input {
 	display: block;
 }
 
-form *:invalid {
-	background-color: #FDD;
+form span.label {
+	font-weight: normal;
+	font-size: 12px;
+	color: #888;
+	margin: 15px 0 0 0;
+}
+form span.value {
+	font-size: 16px;
+	margin: 5px 0;	
+}
+form input, form textarea {
+	border: none;
+	border-bottom: solid 2px #CCC;
+	background-color: transparent;
+	outline: none;
+	font-size: 16px;
+	margin: 5px 0;
+	transition: border-color 0.3s;
+}
+form input:focus, form textarea:focus {
+	border-color: #17b551;
 }
 
-form span {
-	font-weight: bold;
+form *:invalid {
+	
 }
 
 textarea {
@@ -40,6 +97,7 @@ body {
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
+	background-color: #fcfcf9;
 }
 
 #header {
@@ -53,7 +111,7 @@ body {
 
 #wrapper {
 	margin: 0 auto;
-	width: 1000px;
+	min-width: 800px;
 	display: flex;
 	flex-direction: row;
 	align-items: stretch;
@@ -62,29 +120,48 @@ body {
 
 #main {
 	/*float: left;*/
-	width: 80%;
-	padding: 10px 30px;
+	padding: 20px 50px;
 }
 
 #nav {
 	/*float: left;*/
-    width: 20%;
-    background: #eef;
-    padding: 10px 20px;
+    width: 220px;
+    background: #333;
+    color: white;
+    padding: 0;
+    font-weight: normal;
 }
 
 #nav-wrapper {
 	position: fixed;
 }
 
-.search-box {
-	/*float: right;*/
+.search-box * {
+	display: inline;
+	margin: 0;
+	vertical-align: middle;
+}
+.search-box i {
+	color: #BBB;
 }
 
-nav ul {
-	list-style-type: disc;
+#nav ul {
+	list-style-type: none;
 	margin: 0;
-	padding: 0 20px;
+	padding: 0;
+}
+
+#nav h3 {
+	padding: 6px 30px;
+	margin: 20px 0 0 0;
+	color: #CCC;
+	font-weight: normal;
+	font-size: 13px;
+}
+
+#nav ul li {
+	margin: 0;
+	padding: 6px 30px;
 }
 
 a:link {
@@ -114,36 +191,46 @@ input {
 	display: none;	/* will be changed to flex using js */
 	justify-content: center;
 	align-items: flex-start;
-	background: rgba(100, 100, 100, 0.5);
+	background: rgba(0, 0, 0, 0.5);
 	z-index: 100;
 }
 
 #popup-content {
 	overflow: auto;
-	width: 400px;
-	padding: 20px 50px;
+	min-width: 500px;
+	padding: 20px 70px;
 	background-color: #FFF;
-	border-radius: 10px;
 	margin: 10px 0;
 	line-height: 2.0;
+	box-shadow: 0 0 30px 0 rgba(0,0,0,0.4);
 }
 
-.cart {
+.cart-button {
 	position: fixed;
 	right: 30px;
 	bottom: 30px;
-	background-color: #7E9;
-	color: white;
-	padding: 0;
-	font-size: 12px;
-	border-radius: 5px;
-}
-
-.cart a {
+	width: 60px;
+	height: 60px;
 	display: block;
-	padding: 10px;
+	background-color: #32e574;
+	color: white !important;
+	border-radius: 50%;
+	text-align: center;
+	box-shadow: 0 7px 10px 0 rgba(0,0,0,0.2);
 }
 
-.cart-counter {
+.cart-button i {
+	position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+	font-size: 24px;
+}
 
+.cart-button .cart-count {
+	position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    font-size: 8px;
 }

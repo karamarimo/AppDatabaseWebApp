@@ -41,8 +41,8 @@ public class ReviewEditServlet extends HttpServlet {
 			
 			out.println("<h2>レビュー編集</h2>");
 			out.println("<form action='review_update' method='POST'>");
-			out.println("<span>レビューID</span>");
-			out.println("<span>" + rid + "</span>");
+			out.println("<span class='label'>レビューID</span>");
+			out.println("<span class='value'>" + rid + "</span>");
 			out.println("<input type='hidden' name='rid' + value='" + rid + "'>");
 			
 			stmt = conn.prepareStatement("SELECT * FROM review_user WHERE rid = ?");
@@ -50,8 +50,8 @@ public class ReviewEditServlet extends HttpServlet {
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String uid = rs.getString("uid");
-				out.println("<span>投稿者ユーザID</span>");
-				out.println("<span>" + uid + "</span>");
+				out.println("<span class='label'>投稿者ユーザID</span>");
+				out.println("<span class='value'>" + uid + "</span>");
 			}
 			rs.close();
 			stmt.close();
@@ -64,17 +64,17 @@ public class ReviewEditServlet extends HttpServlet {
 				int rate = rs.getInt("rrate");
 				String content = rs.getString("rcontent");
 				
-				out.println("<span>タイトル</span>");
+				out.println("<span class='label'>タイトル</span>");
 				out.println("<input type='text' name='rtitle' required value='" + title + "'>");
-				out.println("<span>レーティング</span>");
+				out.println("<span class='label'>レーティング</span>");
 				out.println("<input type='number' name='rrate' required min='1' max='5' value='" + rate + "'>");
-				out.println("<span>内容</span>");
+				out.println("<span class='label'>内容</span>");
 				out.println("<textarea name='rcontent'>" + content + "</textarea>");
 			}
 			rs.close();
 			stmt.close();
 			
-			out.println("<input type='submit' value='更新'>");
+			out.println("<input class='blue-button' type='submit' value='更新'>");
 			out.println("</form>");
 
 		} catch (Exception e) {
@@ -94,7 +94,7 @@ public class ReviewEditServlet extends HttpServlet {
 
 		out.println("<form action='review_delete' method='POST'>");
 		out.println("<input type='hidden' name='rid' value='" + rid + "'>");
-		out.println("<input class='delete_button' type='submit' value='削除'>");
+		out.println("<input class='red-button' type='submit' value='削除'>");
 		out.println("</form>");
 
 		out.println("</body>");
