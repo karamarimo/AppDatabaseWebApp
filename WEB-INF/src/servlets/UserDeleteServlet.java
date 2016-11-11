@@ -61,6 +61,13 @@ public class UserDeleteServlet extends HttpServlet {
 			stmt.executeUpdate();
 			stmt.close();
 			
+			// delete the user's purchases
+			stmt = conn.prepareStatement("DELETE FROM purchases WHERE pid IN "
+					+ "(SELECT pid FROM purchase_user WHERE uid = ?)");
+			stmt.setInt(1, Integer.parseInt(uid));
+			stmt.executeUpdate();
+			stmt.close();
+			
 			// delete from users
 			stmt = conn.prepareStatement("DELETE FROM users WHERE uid = ?");
 			stmt.setInt(1, Integer.parseInt(uid));
