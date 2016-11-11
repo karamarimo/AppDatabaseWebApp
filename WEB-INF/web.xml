@@ -145,11 +145,6 @@
         <servlet-class>servlets.DevAddServlet</servlet-class>
     </servlet>
 
-    <servlet>
-        <servlet-name>DevDelete</servlet-name>
-        <servlet-class>servlets.DevDeleteServlet</servlet-class>
-    </servlet>
-
 	<servlet-mapping>
 		<servlet-name>AppListDev</servlet-name>
 		<url-pattern>/app_list_dev</url-pattern>
@@ -288,11 +283,6 @@
     <servlet-mapping>
         <servlet-name>DevAdd</servlet-name>
         <url-pattern>/dev_add</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>DevDelete</servlet-name>
-        <url-pattern>/dev_delete</url-pattern>
     </servlet-mapping>
 
 </web-app>

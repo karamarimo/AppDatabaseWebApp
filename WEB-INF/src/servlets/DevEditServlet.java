@@ -60,12 +60,6 @@ public class DevEditServlet extends HttpServlet {
 			
 			out.println("<input class='blue-button' type='submit' value='更新'>");
 			out.println("</form>");
-
-			// delete button
-			out.println("<form action='dev_delete' method='POST'>");
-			out.println("<input type='hidden' name='did' value='" + did + "'>");
-			out.println("<input class='red-button' type='submit' value='削除'>");
-			out.println("</form>");
 		} catch (Exception e) {
 			out.println("エラーが発生しました。");
 			out.println("<br>");
