@@ -36,6 +36,7 @@ public class UserDeleteServlet extends HttpServlet {
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
+		Boolean updaating = false;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
 			
@@ -49,11 +50,26 @@ public class UserDeleteServlet extends HttpServlet {
 			rs.close();
 			stmt.close();
 
-			stmt = conn.prepareStatement("DELETE FROM users WHERE uid = ?");
+			conn.setAutoCommit(false);
+			updaating = true;
+			
+			// DO THIS UPDATE FIRST
+			// delete the user's reviews
+			stmt = conn.prepareStatement("DELETE FROM reviews WHERE rid IN "
+					+ "(SELECT rid FROM review_user WHERE uid = ?)");
 			stmt.setInt(1, Integer.parseInt(uid));
 			stmt.executeUpdate();
 			stmt.close();
 			
+			// delete from users
+			stmt = conn.prepareStatement("DELETE FROM users WHERE uid = ?");
+			stmt.setInt(1, Integer.parseInt(uid));
+			stmt.executeUpdate();
+			stmt.close();	
+			
+			// commit transaction
+			conn.commit();
+
 			out.println("以下のアカウントを削除しました。<br><br>");
 			out.println("アカウントID: " + uid + "<br>");
 			out.println("アカウント名: " + uname + "<br>");
@@ -63,9 +79,22 @@ public class UserDeleteServlet extends HttpServlet {
 			out.println("<br>");
 			out.println(e.getMessage());
 			e.printStackTrace();
+			// if error thrown during transaction, roll it back
+			if (updaating && conn != null) {
+				try {
+					System.err.println("transaction is being rolled back");
+					conn.rollback();
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+			}
 		} finally {
 			try {
+				if (stmt != null) {
+					stmt.close();
+				}
 				if (conn != null) {
+					conn.setAutoCommit(true);
 					conn.close();
 				}
 			} catch (SQLException e) {
