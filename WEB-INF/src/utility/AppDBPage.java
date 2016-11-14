@@ -11,7 +11,8 @@ public class AppDBPage {
 				+ "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>"
 				+ "<link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>"
 				+ "<link rel='stylesheet' type='text/css' href='appdb.css'>"
-				+ "<script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.min.js'></script>", 
+				+ "<script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.min.js'></script>" 
+				+ "<script type='text/javascript' src='navbar-highlight.js'></script>", 
 				"</head>");
 	
 	public static final HtmlTag JS_WARNING_TAG = new HtmlTag(
@@ -23,7 +24,6 @@ public class AppDBPage {
 	
 	public static final HtmlTag NAV_BAR = new HtmlTag(
 				"<nav id='nav'>"
-				+ "<div id='nav-wrapper'>"
 				+ "<h3>開発者用</h3>"
 				+ "<ul>"
 				+ "<li><a href='/app_list_dev'>アプリ一覧</a></li>"
@@ -36,8 +36,7 @@ public class AppDBPage {
 				+ "<li><a href='/app_list_user'>アプリ一覧</a></li>"
 				+ "<li><a href='/user_list'>アカウント一覧</a></li>"
 				+ "<li><a href='/user_new'>アカウント追加</a></li>"
-				+ "</ul>"
-				+ "</div>", 
+				+ "</ul>",
 				"</nav>");
 
 	public static final HtmlTag BODY_WITH_POPUP = new HtmlTag(
