@@ -44,8 +44,8 @@ public class UserDetailServlet extends HttpServlet {
 			ResultSet rs = null;
 			
 			out.println("<h2>アカウント詳細</h2>");
-			out.println("アカウントID: " + uid);
-			out.println("<br>");
+			out.println("<span class='label'>アカウントID</span>");
+			out.println("<span class='value'>" + uid + "</span>");
 			
 			stmt.setInt(1, Integer.parseInt(uid));
 			rs = stmt.executeQuery();
@@ -53,13 +53,13 @@ public class UserDetailServlet extends HttpServlet {
 				String name = rs.getString("uname");
 				String birth = rs.getDate("ubirth").toString();
 				String gender = rs.getBoolean("ugender") ? "女性" : "男性"; 
-
 				
-				out.println("アプリ名: " + name);
-				out.println("<br>");
-				out.println("誕生日: " + birth);
-				out.println("<br>");
-				out.println("性別: " + gender);
+				out.println("<span class='label'>アプリ名</span>");
+				out.println("<span class='value'>" + name + "</span>");
+				out.println("<span class='label'>誕生日</span>");
+				out.println("<span class='value'>" + birth + "</span>");
+				out.println("<span class='label'>性別</span>");
+				out.println("<span class='value'>" + gender + "</span>");
 			}
 			rs.close();
 			stmt.close();

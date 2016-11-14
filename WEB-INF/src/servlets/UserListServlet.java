@@ -38,7 +38,8 @@ public class UserListServlet extends HttpServlet {
 
 		out.println("<h2>アカウント一覧</h2>");
 		out.println("<form class='search-box' action='user_list' method='GET'>");
-		out.println("<input type='search' name='query' placeholder='search for user name...'>");
+		out.println("<i class='material-icons'>search</i>");
+		out.println("<input type='search' name='query' placeholder='user name'>");
 		out.println("</form>");
 
 		out.println("<table class='db-table table-link'>");

@@ -47,8 +47,8 @@ public class AppDetailServlet extends HttpServlet {
 			ResultSet rs = null;
 			
 			out.println("<h2>アプリ詳細</h2>");
-			out.println("アプリID: " + aid);
-			out.println("<br>");
+			out.println("<span class='label'>アプリID</span>");
+			out.println("<span class='value'>" + aid + "</span>");
 			
 			stmt.setInt(1, Integer.parseInt(aid));
 			rs = stmt.executeQuery();
@@ -59,15 +59,16 @@ public class AppDetailServlet extends HttpServlet {
 				String release = rs.getString("arelease_date");
 				String desc = rs.getString("adescription");
 				
-				out.println("アプリ名: " + name);
-				out.println("<br>");
-				out.println("バージョン: " + version);
-				out.println("<br>");
-				out.println("価格: " + price);
-				out.println("<br>");
-				out.println("リリース日: " + release);
-				out.println("<br>");
-				out.println("説明: " + desc);
+				out.println("<span class='label'>アプリ名</span>");
+				out.println("<span class='value'>" + name + "</span>");
+				out.println("<span class='label'>バージョン</span>");
+				out.println("<span class='value'>" + version + "</span>");
+				out.println("<span class='label'>価格</span>");
+				out.println("<span class='value'>" + price + "</span>");
+				out.println("<span class='label'>リリース日</span>");
+				out.println("<span class='value'>" + release + "</span>");
+				out.println("<span class='label'>説明</span>");
+				out.println("<span class='value'>" + desc + "</span>");
 			}
 			rs.close();
 			stmt.close();
@@ -84,16 +85,15 @@ public class AppDetailServlet extends HttpServlet {
 				Double avg_rate = rs.getDouble("avg_rate");
 				
 				// average rating
+				out.println("<span class='label'>平均レーティング</span>");
 				if (rs.wasNull()) {
-					out.println("<br>");
-					out.println("平均レーティング: なし");
+					out.println("<span class='value'>なし</span>");
 				} else {
 					DecimalFormat df = new DecimalFormat("#.0");
 					df.setRoundingMode(RoundingMode.HALF_UP);
 					String avg = df.format(avg_rate);
 					
-					out.println("<br>");
-					out.println("平均レーティング: " + avg);
+					out.println("<span class='value'>" + avg + "</span>");
 				}
 				
 				// see-all-reviews button showing review count

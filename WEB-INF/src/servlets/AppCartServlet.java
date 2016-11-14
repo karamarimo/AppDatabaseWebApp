@@ -113,12 +113,12 @@ public class AppCartServlet extends HttpServlet {
 		out.println("</tbody>");
 		out.println("</table>");
 		
-		out.println("<div>合計: ¥" + total + "</div>");
+		out.println("<span class='label'>合計</span><span class='value'>¥" + total + "</span>");
 		
 		// purchase form
 		out.println("<form action='app_purchase' method='POST'>");
-		out.println("<div>購入者のアカウントID"
-				+ "<input type='number' name='uid' min='0' required></div>");
+		out.println("<span class='label'>購入者のアカウントID</span>");
+		out.println("<input type='number' name='uid' min='0' required>");
 		for (String aid: cart_aids) {
 			out.println("<input type='hidden' name='aid' value='" + aid + "'>");			
 		}
