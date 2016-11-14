@@ -8,7 +8,7 @@ $(function() {
 			// 	popup.load(ref, function () {});
 			// }
 			$('#popup-content').load(ref, function() {
-				$('#popup').fadeIn(300).css('display', 'flex');
+				$('#popup').fadeIn(300).scrollTop(0).css('display', 'flex');
 				$('body').css('overflow', 'hidden');
 			});
 		}
