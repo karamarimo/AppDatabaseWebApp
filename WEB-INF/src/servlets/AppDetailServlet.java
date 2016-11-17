@@ -43,13 +43,27 @@ public class AppDetailServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
-			stmt = conn.prepareStatement("SELECT * FROM apps WHERE aid = ?");
 			ResultSet rs = null;
 			
 			out.println("<h2>アプリ詳細</h2>");
 			out.println("<span class='label'>アプリID</span>");
 			out.println("<span class='value'>" + aid + "</span>");
 			
+			stmt = conn.prepareStatement(
+					"SELECT dname FROM app_dev NATURAL JOIN devs WHERE aid = ?");
+			stmt.setInt(1, Integer.parseInt(aid));
+			rs = stmt.executeQuery();
+			out.println("<span class='label'>開発者名</span>");
+			if (rs.next()) {
+				String dname = rs.getString("dname");
+				out.println("<span class='value'>" + dname + "</span>");
+			} else {
+				out.println("<span class='value'>N/A</span>");
+			}
+			rs.close();
+			stmt.close();
+			
+			stmt = conn.prepareStatement("SELECT * FROM apps WHERE aid = ?");
 			stmt.setInt(1, Integer.parseInt(aid));
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -87,7 +101,7 @@ public class AppDetailServlet extends HttpServlet {
 				// average rating
 				out.println("<span class='label'>平均レーティング</span>");
 				if (rs.wasNull()) {
-					out.println("<span class='value'>なし</span>");
+					out.println("<span class='value'>N/A</span>");
 				} else {
 					DecimalFormat df = new DecimalFormat("#.0");
 					df.setRoundingMode(RoundingMode.HALF_UP);
