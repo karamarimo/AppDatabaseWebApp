@@ -60,13 +60,7 @@ public class AppDeleteServlet extends HttpServlet {
 			stmt.setInt(1, Integer.parseInt(deleteAID));
 			stmt.executeUpdate();
 			stmt.close();
-			
-			// delete purchases that includes the app
-			stmt = conn.prepareStatement("DELETE FROM purchase_app WHERE aid = ?");
-			stmt.setInt(1, Integer.parseInt(deleteAID));
-			stmt.executeUpdate();
-			stmt.close();
-			
+						
 			// delete from apps
 			stmt = conn.prepareStatement("DELETE FROM apps WHERE aid = ?");
 			stmt.setInt(1, Integer.parseInt(deleteAID));
