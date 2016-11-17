@@ -30,7 +30,7 @@ public class AppNewServlet extends HttpServlet {
 		out.println("<h3>アプリ追加</h3>");
 		out.println("<form action='app_add' method='POST'>");
 		out.println("<span class='label'>開発者ID</span>");
-		out.println("<input type='text' name='add_did' required>");
+		out.println("<input type='number' min='0' name='add_did' required>");
 		out.println("<span class='label'>アプリ名</span>");
 		out.println("<input type='text' name='add_name' required>");
 		out.println("<span class='label'>バージョン</span>");

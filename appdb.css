@@ -1,5 +1,6 @@
 * {
 	box-sizing: border-box;
+	font-family: sans-serif;
 }
 
 .db-table {
@@ -28,6 +29,7 @@
 }
 
 .blue-button, .red-button, .button-delete-item {
+	width: auto;
 	color: white;
 	border: none;
 	transition: background-color 0.2s;
@@ -56,15 +58,19 @@
 .button-delete-item {
 	padding: 0;
 	font-size: 13px;
-	line-height: 20px;
-	width: 20px;
-	height: 20px;
+	line-height: 25px;
+	width: 25px;
+	height: 25px;
 	margin: 0;
 	border-radius: 50%;
 	background-color: #cc1919;
 }
+.button-delete-item:active {
+	background-color: #E94949;
+}
 
 .search-box * {
+	width: 150px;
 	display: inline;
 	margin: 0;
 	vertical-align: middle;
@@ -88,6 +94,7 @@ span.value {
 	margin: 5px 0;	
 }
 form input, form textarea {
+	width: 300px;
 	border: none;
 	border-bottom: solid 2px #CCC;
 	background-color: transparent;
@@ -218,11 +225,11 @@ a:hover {
 
 #popup-content {
 	overflow: auto;
-	width: 500px;
+	width: 600px;
 	padding: 20px 70px;
 	background-color: #FFF;
 	margin: 10px 0;
-	line-height: 2.0;
+	/*line-height: 2.0;*/
 	box-shadow: 0 0 30px 0 rgba(0,0,0,0.4);
 }
 

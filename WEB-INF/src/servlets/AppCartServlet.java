@@ -126,7 +126,7 @@ public class AppCartServlet extends HttpServlet {
 		out.println("</form>");
 		
 		// clear button
-		out.println("<button class='button-clear-cart'>カートを空にする</button>");
+		out.println("<button class='button-clear-cart blue-button'>カートを空にする</button>");
 		
 		out.println(AppDBPage.BODY.closingTag);
 		out.println("</html>");

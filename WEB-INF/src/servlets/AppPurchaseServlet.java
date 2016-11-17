@@ -54,6 +54,7 @@ public class AppPurchaseServlet extends HttpServlet {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
 			ResultSet rs = null;
 			
+			// get new purchase id
 			stmt = conn.prepareStatement("SELECT MAX(pid) AS max_pid FROM purchases");
 			Integer max_pid = 0;
 			rs = stmt.executeQuery();
@@ -64,7 +65,8 @@ public class AppPurchaseServlet extends HttpServlet {
 			stmt.close();
 
 			Integer pid = max_pid + 1;
-
+			
+			// get name and price of each app
 			stmt = conn.prepareStatement("SELECT aname,aprice FROM apps WHERE aid = ?");
 			for (int i = 0; i < apps.length; i++) {
 				String aid = apps[i];
