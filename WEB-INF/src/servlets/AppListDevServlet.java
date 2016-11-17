@@ -31,6 +31,7 @@ public class AppListDevServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String query = request.getParameter("query");
+		Boolean searching = query != null && !query.isEmpty();
 		
 		out.println("<html>");
 		out.println(AppDBPage.HEAD.openingTag);
@@ -41,7 +42,12 @@ public class AppListDevServlet extends HttpServlet {
 		out.println("<h2>アプリ一覧</h2>");
 		out.println("<form class='search-box' action='app_list_dev' method='GET'>");
 		out.println("<i class='material-icons'>search</i>");
-		out.println("<input type='search' name='query' placeholder='app name'>");
+		if (searching) {
+			out.println("<input type='search' name='query' placeholder='user name' value='"
+					+ query + "'>");
+		} else {
+			out.println("<input type='search' name='query' placeholder='user name'>");			
+		}
 		out.println("</form>");
 
 		out.println("<table class='db-table table-popup'>");
@@ -51,7 +57,7 @@ public class AppListDevServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
-			if (query == null || query.isEmpty()) {
+			if (!searching) {
 				stmt = conn.prepareStatement("SELECT aid,aname,aprice FROM apps ORDER BY aid");
 			} else {
 				stmt = conn.prepareStatement(

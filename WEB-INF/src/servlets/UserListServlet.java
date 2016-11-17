@@ -29,6 +29,7 @@ public class UserListServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String query = request.getParameter("query");
+		Boolean searching = query != null && !query.isEmpty();
 		
 		out.println("<html>");
 		out.println(AppDBPage.HEAD.openingTag);
@@ -39,7 +40,12 @@ public class UserListServlet extends HttpServlet {
 		out.println("<h2>アカウント一覧</h2>");
 		out.println("<form class='search-box' action='user_list' method='GET'>");
 		out.println("<i class='material-icons'>search</i>");
-		out.println("<input type='search' name='query' placeholder='user name'>");
+		if (searching) {
+			out.println("<input type='search' name='query' placeholder='user name' value='"
+					+ query + "'>");
+		} else {
+			out.println("<input type='search' name='query' placeholder='user name'>");			
+		}
 		out.println("</form>");
 
 		out.println("<table class='db-table table-link'>");
@@ -52,7 +58,7 @@ public class UserListServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
-			if (query == null || query.isEmpty()) {
+			if (!searching) {
 				stmt = conn.prepareStatement("SELECT uid,uname,ubirth,ugender FROM users ORDER BY uid");
 			} else {
 				stmt = conn.prepareStatement(

@@ -29,6 +29,7 @@ public class DevListServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String query = request.getParameter("query");
+		Boolean searching = query != null && !query.isEmpty();
 		
 		out.println("<html>");
 		out.println(AppDBPage.HEAD.openingTag);
@@ -39,7 +40,12 @@ public class DevListServlet extends HttpServlet {
 		out.println("<h2>開発者一覧</h2>");
 		out.println("<form class='search-box' action='dev_list' method='GET'>");
 		out.println("<i class='material-icons'>search</i>");
-		out.println("<input type='search' name='query' placeholder='developer name'>");
+		if (searching) {
+			out.println("<input type='search' name='query' placeholder='user name' value='"
+					+ query + "'>");
+		} else {
+			out.println("<input type='search' name='query' placeholder='user name'>");			
+		}
 		out.println("</form>");
 
 		out.println("<table class='db-table table-popup'>");
@@ -49,7 +55,7 @@ public class DevListServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		try {
 			conn = AppDatabaseConnection.getConnection(getServletContext());
-			if (query == null || query.isEmpty()) {
+			if (!searching) {
 				stmt = conn.prepareStatement("SELECT * FROM devs ORDER BY did");
 			} else {
 				stmt = conn.prepareStatement(
