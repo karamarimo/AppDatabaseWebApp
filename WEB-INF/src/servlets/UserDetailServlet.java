@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.AppDatabaseConnection;
+import utility.AppDBConnection;
 
 @SuppressWarnings("serial")
 public class UserDetailServlet extends HttpServlet {
@@ -39,7 +39,7 @@ public class UserDetailServlet extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = AppDatabaseConnection.getConnection(getServletContext());
+			conn = AppDBConnection.getConnection(getServletContext());
 			stmt = conn.prepareStatement("SELECT * FROM users WHERE uid = ?");
 			ResultSet rs = null;
 			

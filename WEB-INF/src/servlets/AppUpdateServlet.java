@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.AppDatabaseConnection;
+import utility.AppDBConnection;
 
 @SuppressWarnings("serial")
 public class AppUpdateServlet extends HttpServlet {
@@ -42,7 +42,7 @@ public class AppUpdateServlet extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = AppDatabaseConnection.getConnection(getServletContext());
+			conn = AppDBConnection.getConnection(getServletContext());
 			
 			stmt = conn.prepareStatement("UPDATE apps SET "
 					+ "aname = ?, aversion = ?, aprice = ?, arelease_date = ?, adescription = ? "

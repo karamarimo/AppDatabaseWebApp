@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.AppDatabaseConnection;
+import utility.AppDBConnection;
 
 @SuppressWarnings("serial")
 public class UserDeleteServlet extends HttpServlet {
@@ -38,7 +38,7 @@ public class UserDeleteServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		Boolean updaating = false;
 		try {
-			conn = AppDatabaseConnection.getConnection(getServletContext());
+			conn = AppDBConnection.getConnection(getServletContext());
 			
 			stmt = conn.prepareStatement("SELECT uname FROM users WHERE uid = ?");
 			stmt.setInt(1, Integer.parseInt(uid));

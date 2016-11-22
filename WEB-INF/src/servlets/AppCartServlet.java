@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.AppDatabaseConnection;
+import utility.AppDBConnection;
 
 @SuppressWarnings("serial")
 public class AppCartServlet extends HttpServlet {
@@ -70,7 +70,7 @@ public class AppCartServlet extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = AppDatabaseConnection.getConnection(getServletContext());
+			conn = AppDBConnection.getConnection(getServletContext());
 			stmt = conn.prepareStatement("SELECT aid,aname,aprice FROM apps WHERE aid = ?");
 			ResultSet rs = null;
 			

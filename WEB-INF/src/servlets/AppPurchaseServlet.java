@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.AppDatabaseConnection;
+import utility.AppDBConnection;
 
 @SuppressWarnings("serial")
 public class AppPurchaseServlet extends HttpServlet {
@@ -51,7 +51,7 @@ public class AppPurchaseServlet extends HttpServlet {
 		Integer aprices[] = new Integer[apps.length];
 		Boolean updaating = false;
 		try {
-			conn = AppDatabaseConnection.getConnection(getServletContext());
+			conn = AppDBConnection.getConnection(getServletContext());
 			ResultSet rs = null;
 			
 			// get new purchase id

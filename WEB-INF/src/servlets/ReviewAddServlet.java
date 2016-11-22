@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.AppDatabaseConnection;
+import utility.AppDBConnection;
 
 @SuppressWarnings("serial")
 public class ReviewAddServlet extends HttpServlet {
@@ -41,7 +41,7 @@ public class ReviewAddServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 		Boolean updaating = false;
 		try {
-			conn = AppDatabaseConnection.getConnection(getServletContext());
+			conn = AppDBConnection.getConnection(getServletContext());
 			stmt = conn.prepareStatement("SELECT MAX(rid) AS max_rid FROM reviews");
 			
 			int max_rid = 0;
@@ -69,7 +69,7 @@ public class ReviewAddServlet extends HttpServlet {
 			
 			// insert into review_app
 			stmt = conn.prepareStatement(
-					"INSERT INTO review_app (rid,aid)"
+					"INSERT INTO review_app (rid,aid) "
 					+ "VALUES (?, ?)");
 			stmt.setInt(1, rid);
 			stmt.setInt(2, Integer.parseInt(aid));
@@ -77,7 +77,7 @@ public class ReviewAddServlet extends HttpServlet {
 			
 			// insert into review_user
 			stmt = conn.prepareStatement(
-					"INSERT INTO review_user (rid,uid)"
+					"INSERT INTO review_user (rid,uid) "
 					+ "VALUES (?, ?)");
 			stmt.setInt(1, rid);
 			stmt.setInt(2, Integer.parseInt(uid));

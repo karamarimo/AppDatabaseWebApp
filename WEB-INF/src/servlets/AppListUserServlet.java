@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.AppDatabaseConnection;
+import utility.AppDBConnection;
 
 @SuppressWarnings("serial")
 public class AppListUserServlet extends HttpServlet {
@@ -59,7 +59,7 @@ public class AppListUserServlet extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = AppDatabaseConnection.getConnection(getServletContext());
+			conn = AppDBConnection.getConnection(getServletContext());
 			if (!searching) {
 				stmt = conn.prepareStatement("SELECT aid,aname,aprice FROM apps ORDER BY aid");
 			} else {

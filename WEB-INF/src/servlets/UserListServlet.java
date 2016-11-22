@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.AppDatabaseConnection;
+import utility.AppDBConnection;
 
 @SuppressWarnings("serial")
 public class UserListServlet extends HttpServlet {
@@ -57,7 +57,7 @@ public class UserListServlet extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = AppDatabaseConnection.getConnection(getServletContext());
+			conn = AppDBConnection.getConnection(getServletContext());
 			if (!searching) {
 				stmt = conn.prepareStatement("SELECT uid,uname,ubirth,ugender FROM users ORDER BY uid");
 			} else {

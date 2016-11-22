@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import javax.servlet.ServletContext;
 
-public class AppDatabaseConnection {
+public class AppDBConnection {
 	
 	static public Connection getConnection(ServletContext ctx) throws SQLException {
 		String _hostname = null;

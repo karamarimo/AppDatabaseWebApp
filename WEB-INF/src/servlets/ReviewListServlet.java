@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.AppDatabaseConnection;
+import utility.AppDBConnection;
 
 @SuppressWarnings("serial")
 public class ReviewListServlet extends HttpServlet {
@@ -37,7 +37,7 @@ public class ReviewListServlet extends HttpServlet {
 		out.println(AppDBPage.BODY_WITH_POPUP.openingTag);
 
 		out.println("<h3>レビュー一覧</h3>");
-		out.println("アプリID: " + aid);
+		out.println("<h5>アプリID: " + aid + " のすべてのレビュー</h5>");
 		
 		out.println("<table class='db-table table-popup'>");
 		out.println("<thead><tr><th align='right'>レビューID</th>"
@@ -49,7 +49,7 @@ public class ReviewListServlet extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = AppDatabaseConnection.getConnection(getServletContext());
+			conn = AppDBConnection.getConnection(getServletContext());
 			
 			stmt = conn.prepareStatement(
 					"SELECT rid,uname,rtitle,rrate "

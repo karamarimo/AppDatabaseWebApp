@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utility.AppDBPage;
-import utility.AppDatabaseConnection;
+import utility.AppDBConnection;
 
 @SuppressWarnings("serial")
 public class AppAddServlet extends HttpServlet {
@@ -45,7 +45,7 @@ public class AppAddServlet extends HttpServlet {
 		PreparedStatement insertAppDev = null;
 		Boolean updating = false;
 		try {
-			conn = AppDatabaseConnection.getConnection(getServletContext());
+			conn = AppDBConnection.getConnection(getServletContext());
 			selectAID = conn.prepareStatement("SELECT MAX(aid) AS max_aid FROM apps");
 			
 			int max_aid = 0;
